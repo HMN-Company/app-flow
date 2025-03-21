@@ -40,7 +40,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/login", "/register", "/property/**").permitAll()
+                        .requestMatchers("/login", "/property/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
@@ -52,8 +52,8 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/home", true)
                 )
                 .rememberMe(rememberMe -> rememberMe
-                        .key("8EWwp4nt-t_CANi_91VaGnFI0TgHyOHY7Pv5ayp_5Lc=")
-                        .tokenValiditySeconds(86400)
+                        .key("JYYKrCvTMs8EgavAsBKmTizD03OD4j3FVq156RegXVk")
+                        .tokenValiditySeconds(30 * 24 * 60 * 60)
                 )
                 .logout(logout -> logout
                         .deleteCookies("JSESSIONID")
