@@ -5,19 +5,22 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Entity
 @MappedSuperclass
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseEntity {
     @Id
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -25,11 +28,4 @@ public class BaseEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        if (id == null) {
-            id = UUID.randomUUID().toString();
-        }
-    }
 }
