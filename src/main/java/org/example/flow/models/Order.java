@@ -17,12 +17,6 @@ public class Order extends BaseEntity {
     private String email;
     private String address;
     private String phone;
+    @Enumerated(EnumType.STRING)
     private Status status;
-
-    public static class Status {
-        public static final String PENDING = "PENDING";
-        public static final String CONFIRMED = "CONFIRMED";
-        public static final String DELIVERED = "DELIVERED";
-        public static final String CANCELLED = "CANCELLED";
-    }
 }
