@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role get(Long id) {
+    public Role get(String id) {
         return null;
     }
 
