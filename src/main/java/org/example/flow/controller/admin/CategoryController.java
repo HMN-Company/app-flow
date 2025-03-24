@@ -19,8 +19,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/admin-manager")
 public class CategoryController {
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/category")
     public ModelAndView category(@RequestParam(defaultValue = "0") int page,

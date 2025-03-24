@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController {
 
-    @Autowired
-    UserDetailService userDetailService;
 
-    @GetMapping()
+    private final UserDetailService userDetailService;
+
+    public LoginController(UserDetailService userDetailService) {
+        this.userDetailService = userDetailService;
+    }
+
+    @GetMapping("")
     public String login() {
         return "admin/login";
     }
