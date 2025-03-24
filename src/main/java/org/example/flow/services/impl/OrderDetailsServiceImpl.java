@@ -25,7 +25,7 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
     }
 
     @Override
-    public OrderDetails get(Long id) {
+    public OrderDetails get(String  id) {
         return null;
     }
 

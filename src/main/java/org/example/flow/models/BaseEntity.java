@@ -16,13 +16,16 @@ import java.util.UUID;
 @NoArgsConstructor
 public class BaseEntity {
     @Id
-    @GeneratedValue
-    private UUID id;
-
+    private String id;
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @PrePersist
+    protected void onCreate() {
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
+    }
 }

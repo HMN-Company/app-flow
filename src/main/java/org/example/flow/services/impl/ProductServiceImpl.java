@@ -1,7 +1,11 @@
 package org.example.flow.services.impl;
 
 import org.example.flow.models.Product;
+import org.example.flow.repositories.ProductRepository;
 import org.example.flow.services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -9,6 +13,10 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void save(Product entity) {
 
@@ -25,12 +33,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(Long id) {
+    public Product get(String id) {
         return null;
     }
 
     @Override
     public Collection<Product> getAll() {
-        return List.of();
+        return productRepository.findAll();
+    }
+
+    public Page<Product> findAllAndSearch(String name, Pageable pageable) {
+
+        if (name != null && !name.isEmpty()) {
+            return productRepository.findAllByNameContaining(name, pageable);
+        } else {
+            return productRepository.findAll(pageable);
+        }
     }
 }
