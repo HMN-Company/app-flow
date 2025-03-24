@@ -16,8 +16,8 @@ import java.util.UUID;
 @NoArgsConstructor
 public class BaseEntity {
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @CreationTimestamp
     @Column(updatable = false)
