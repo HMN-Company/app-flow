@@ -25,7 +25,7 @@ public class ProductCategoryServiceImpl implements ProductService {
     }
 
     @Override
-    public Product get(Long id) {
+    public Product get(String id) {
         return null;
     }
 

@@ -25,7 +25,7 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public Media get(Long id) {
+    public Media get(String id) {
         return null;
     }
 
