@@ -16,8 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class BaseEntity {
     @Id
-    @GeneratedValue
-    private UUID id;
+    private String id;
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -25,4 +24,10 @@ public class BaseEntity {
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+    @PrePersist
+    public void prePersist() {
+        if (id == null) {
+            id = UUID.randomUUID().toString();
+        }
+    }
 }
