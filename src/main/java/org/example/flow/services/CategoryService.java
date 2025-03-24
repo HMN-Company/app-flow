@@ -6,5 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface CategoryService extends BaseService<Category> {
     Page<Category> findAll(Pageable pageable);
+    void deleteById(String id);
 
 }

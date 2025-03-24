@@ -52,4 +52,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Page<Category> findAll(Pageable pageable) {
         return categoryRepository.findAll(pageable);
     }
+
+    @Override
+    public void deleteById(String id) {
+        categoryRepository.deleteById(id);
+    }
 }
