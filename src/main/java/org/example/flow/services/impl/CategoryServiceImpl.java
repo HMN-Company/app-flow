@@ -1,6 +1,7 @@
 package org.example.flow.services.impl;
 
 import org.example.flow.models.Category;
+import org.example.flow.repositories.CategoryRepository;
 import org.example.flow.services.CategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,12 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
+    private final CategoryRepository categoryRepository;
+    public CategoryServiceImpl (CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+    
     @Override
     public void save(Category entity) {
 
@@ -47,8 +54,5 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.deleteById(id);
     }
 
-    @Override
-    public void deleteById(String id) {
-        categoryRepository.deleteById(id);
-    }
+
 }
