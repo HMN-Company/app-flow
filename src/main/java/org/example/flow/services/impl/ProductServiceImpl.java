@@ -13,12 +13,16 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @Service
 public class ProductServiceImpl implements ProductService {
+
     private final ProductRepository productRepository;
+
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
+
     @Override
     public void save(Product entity) {
         productRepository.save(entity);
@@ -44,14 +48,25 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
+
+    @Override
+    public Page<Product> findAllAndSearch(String name, Pageable pageable) {
+
+        if (name != null && !name.isEmpty()) {
+            return productRepository.findAllByNameContaining(name, pageable);
+        } else {
+            return productRepository.findAll(pageable);
+        }
+    }
+
     @Override
     public Page<Product> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
+        return null;
     }
 
     @Override
     public void deleteById(String id) {
-        productRepository.deleteById(id);
+
     }
 
     @Override
@@ -72,4 +87,5 @@ public class ProductServiceImpl implements ProductService {
                 obj[8] != null ? LocalDateTime.parse(obj[8].toString()) : null // updatedAt
         );
     }
+
 }

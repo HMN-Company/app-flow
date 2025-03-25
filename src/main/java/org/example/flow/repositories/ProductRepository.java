@@ -13,6 +13,7 @@ import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, String> {
+    Page<Product> findAllByNameContaining(String name, Pageable pageable);
     Page<Product> findAll(Pageable pageable);
     @Query(value = """
         SELECT p.id, p.name, p.description, p.price, p.discount, 

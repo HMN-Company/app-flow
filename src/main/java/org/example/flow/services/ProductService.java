@@ -11,5 +11,6 @@ public interface ProductService extends BaseService<Product> {
     Page<Product> findAll(Pageable pageable);
     void deleteById(String id);
     List<ProductDTO> findAllProductDTO();
+    Page<Product> findAllAndSearch(String name, Pageable pageable);
 
 }
