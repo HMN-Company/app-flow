@@ -93,8 +93,8 @@ public class BaseController {
     public String blogDetail() {
         return "blog-detail";
     }
-
-    @GetMapping("/login")
+    
+    @GetMapping("/login/user")
     public String login() {
         return "login";
     }

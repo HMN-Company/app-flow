@@ -2,6 +2,8 @@ package org.example.flow.services.impl;
 
 import org.example.flow.models.Category;
 import org.example.flow.services.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -32,5 +34,11 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Collection<Category> getAll() {
         return List.of();
+    }
+
+
+    @Override
+    public Page<Category> findAll(Pageable pageable) {
+        return null;
     }
 }

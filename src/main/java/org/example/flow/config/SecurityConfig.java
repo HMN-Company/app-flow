@@ -40,12 +40,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/login", "/assets/**", "/", "/shop-grid", "/shop-grid-sidebar",
+
+                        .requestMatchers("/login", "/login/admin", "/assets/**", "/", "/shop-grid", "/shop-grid-sidebar",
                         "/shop-list", "/product-detail", "/cart", "/checkout", "/wishlist", "/track-order",
-                        "/about", "/blogs", "/blogs-sidebar", "/blog-detail", "/signup", "/404", 
+                        "/about", "/blogs", "/blogs-sidebar", "/blog-detail", "/signup", "/404",
                         "/coming-soon", "/contact", "/css/**", "/js/**", "/images/**", "/fonts/**",
                         "/webjars/**", "/favicon.ico", "/error", "/assets/media/**", "/assets/js/**",
-                        "/assets/css/**", "/assets/fonts/**").permitAll()
+                        "/assets/css/**", "/assets/fonts/**", "/admin/assets/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
@@ -54,7 +55,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .failureUrl("/login?error=true")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/home", true)
+                        .defaultSuccessUrl("/dashboard", true)
                 )
                 .rememberMe(rememberMe -> rememberMe
                         .key("JYYKrCvTMs8EgavAsBKmTizD03OD4j3FVq156RegXVk")
