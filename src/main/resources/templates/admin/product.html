@@ -130,12 +130,12 @@
                                         <thead>
                                         <tr>
                                             <th>Số thứ tự</th>
-                                            <th>Mã Sản Phẩm</th>
+<!--                                            <th>Mã Sản Phẩm</th>-->
                                             <th>Tên Sản Phẩm</th>
                                             <th>Giá Sản Phẩm</th>
                                             <th>Chiết khấu</th>
                                             <th>Mô tả</th>
-                                            <th>Danh mục</th>
+                                            <th style="width: 200px">Danh mục</th>
                                             <th>Ảnh</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
@@ -144,7 +144,7 @@
                                         <tbody>
                                         <tr th:each="product, stat : ${products}">
                                             <td th:text="${stat.index + 1 + currentPage * 5}"></td>
-                                            <td th:text="${product.id}"></td>
+    <!--                                            <td th:text="${product.id}"></td>-->
                                             <td th:text="${product.name}"></td>
                                             <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></td>
                                             <td th:text="${product.discount + '%'}"></td>

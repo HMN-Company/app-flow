@@ -63,7 +63,7 @@
                         <i class="bi bi-window-split"></i>
                     </div>
                     <div class="page-title d-none d-md-block">
-                        <h5>Tables</h5>
+                        <h5>Danh Mục Sản Phẩm</h5>
                     </div>
                 </div>
                 <!-- Live updates start -->
@@ -103,7 +103,7 @@
                                         <thead>
                                         <tr>
                                             <th>Số thứ tự</th>
-                                            <th>Mã Danh Mục</th>
+<!--                                            <th>Mã Danh Mục</th>-->
                                             <th>Tên Danh Mục</th>
                                             <th>Thời gian tạo</th>
                                             <th>Thời gian cập nhật gần nhất</th>
@@ -114,7 +114,7 @@
                                         <tbody>
                                         <tr th:each="category, stat : ${categories}">
                                             <td th:text="${stat.index + 1 + currentPage * 5}"></td>
-                                            <td th:text="${category.id}"></td>
+<!--                                            <td th:text="${category.id}"></td>-->
                                             <td th:text="${category.name}"></td>
                                             <td th:text="${#temporals.format(category.createdAt, 'HH:mm dd-MM-yyyy')}"></td>
                                             <td th:text="${#temporals.format(category.updatedAt, 'HH:mm dd-MM-yyyy')}"></td>
