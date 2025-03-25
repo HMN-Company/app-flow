@@ -19,4 +19,5 @@ public class ProductDTO {
     private List<String> categoryNames;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
 }
