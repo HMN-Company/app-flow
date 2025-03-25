@@ -25,7 +25,7 @@ public class BaseEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     @PrePersist
-    public void prePersist() {
+    protected void onCreate() {
         if (id == null) {
             id = UUID.randomUUID().toString();
         }
