@@ -67,7 +67,7 @@ public class ProductController {
         List<Category> categories = (List<Category>) categoryService.getAll();
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDTO());
-        return "admin/create";
+        return "admin/product_create";
     }
 
 
@@ -78,9 +78,9 @@ public class ProductController {
                                 RedirectAttributes redirectAttributes) {
         boolean created = productService.createProduct(productDTO, imageFiles);
         if (created) {
-            redirectAttributes.addFlashAttribute("successMessage", "Thêm sản phẩm thành công!");
+            redirectAttributes.addFlashAttribute("addSuccess", true);
         } else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Thêm sản phẩm thất bại!");
+            redirectAttributes.addFlashAttribute("addError", true);
         }
         return "redirect:/admin-manager/product/create"; // Chuyển hướng về danh sách sản phẩm
     }
