@@ -6,4 +6,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductService extends BaseService<Product> {
     Page<Product> findAllAndSearch(String name, Pageable pageable);
+
 }
