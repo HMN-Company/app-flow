@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Bloom - Flower Shop HTML Template">
 
+<<<<<<< HEAD
     <title>Bloom - Mẫu HTML</title>
 
     <!-- Biểu tượng trang -->
@@ -20,6 +21,20 @@
     <link rel="stylesheet" th:href="@{assets/css/vendor/animate.min.css}">
     <link rel="stylesheet" th:href="@{assets/css/vendor/jquery.magnific-popup.css}">
     <link rel="stylesheet" th:href="@{assets/css/app.css}">
+=======
+    <title>Bloom - Cửa hàng hoa</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/media/favicon.png}">
+
+    <!-- All CSS files -->
+    <link rel="stylesheet" th:href="@{/assets/css/vendor/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/vendor/fontawsome.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/vendor/slick.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/vendor/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/vendor/jquery.magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/app.css}">
+>>>>>>> fa0909c77841ed8a1d5e0811f30ce8983c379273
 
 </head>
 
@@ -1275,7 +1290,10 @@
     <script th:src="@{/assets/js/vendor/jquery.nice-select.min.js}"></script>
     <script th:src="@{/assets/js/vendor/slick.min.js}"></script>
     <script th:src="@{/assets/js/vendor/wow.js}"></script>
+<<<<<<< HEAD
     <script th:src="@{/assets/js/vendor/ion.rangeSlider.js}"></script>
+=======
+>>>>>>> fa0909c77841ed8a1d5e0811f30ce8983c379273
     <script th:src="@{/assets/js/vendor/jquery.magnific-popup.min.js}"></script>
     <script th:src="@{/assets/js/app.js}"></script>
 </body>
