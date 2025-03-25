@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,20 +72,25 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAllProductDTO() {
-        return productRepository.findAllProductDTO().stream().map(this::mapToProductDTO).collect(Collectors.toList());
+        return productRepository.findAllProductDTO()
+                .stream()
+                .map(this::mapToProductDTO)
+                .collect(Collectors.toList());
     }
 
     private ProductDTO mapToProductDTO(Object[] obj) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"); // Định dạng phù hợp với chuỗi ngày giờ
+
         return new ProductDTO(
                 (String) obj[0], // id
                 (String) obj[1], // name
                 (String) obj[2], // description
                 (Double) obj[3], // price
                 (Double) obj[4], // discount
-                List.of(((String) obj[5]).split(", ")), // imageUrls
-                List.of(((String) obj[6]).split(", ")), // categoryNames
-                obj[7] != null ? LocalDateTime.parse(obj[7].toString()) : null, // createdAt
-                obj[8] != null ? LocalDateTime.parse(obj[8].toString()) : null // updatedAt
+                obj[5] != null ? List.of(((String) obj[5]).split(", ")) : List.of(), // imageUrls
+                obj[6] != null ? List.of(((String) obj[6]).split(", ")) : List.of(), // categoryNames
+                obj[7] != null ? LocalDateTime.parse(obj[7].toString(), formatter) : null, // createdAt
+                obj[8] != null ? LocalDateTime.parse(obj[8].toString(), formatter) : null // updatedAt
         );
     }
 
