@@ -1,21 +1,16 @@
-package org.example.flow.controller.admin;
+package org.example.flow.controllers.admin;
 
 
 import org.example.flow.models.Category;
 import org.example.flow.services.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin-manager/category")
@@ -29,7 +24,7 @@ public class CategoryController {
     @GetMapping("")
     public ModelAndView category(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "5") int size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         Page<Category> categoryPage = categoryService.findAll(pageable);
 
         ModelAndView modelAndView = new ModelAndView("admin/category");

@@ -67,3 +67,6 @@ FROM Product p
     GROUP BY pc.product_id
 ) c ON p.id = c.product_id;
 
+
+
+DELETE FROM product_category WHERE product_id = :productId
