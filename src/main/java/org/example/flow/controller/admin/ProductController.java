@@ -1,6 +1,7 @@
 package org.example.flow.controller.admin;
 
 
+import org.example.flow.dtos.ProductDTO;
 import org.example.flow.models.Category;
 import org.example.flow.models.Product;
 import org.example.flow.services.ProductService;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("admin-manager/product")
 public class ProductController {
@@ -24,14 +27,11 @@ public class ProductController {
         this.productService = productService;
     }
     @GetMapping("")
-    public ModelAndView product(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Product> productPage = productService.findAll(pageable);
+    public ModelAndView product() {
+        List<ProductDTO> productPage = productService.findAllProductDTO();
         ModelAndView modelAndView = new ModelAndView("admin/product");
-        modelAndView.addObject("products", productPage.getContent());
-        modelAndView.addObject("currentPage", page);
-        modelAndView.addObject("totalPages", productPage.getTotalPages());
+        modelAndView.addObject("products", productPage);
+
         return modelAndView;
     }
 }

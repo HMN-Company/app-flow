@@ -63,7 +63,7 @@
                         <i class="bi bi-window-split"></i>
                     </div>
                     <div class="page-title d-none d-md-block">
-                        <h5>Tables</h5>
+                        <h5>Danh Sách Sản Phẩm</h5>
                     </div>
                 </div>
                 <!-- Live updates start -->
@@ -103,8 +103,8 @@
                                         <thead>
                                         <tr>
                                             <th>Số thứ tự</th>
-                                            <th>Mã Danh Mục</th>
-                                            <th>Tên Danh Mục</th>
+                                            <th>Mã Sản Phẩm</th>
+                                            <th>Tên Sản Phẩm</th>
                                             <th>Thời gian tạo</th>
                                             <th>Thời gian cập nhật gần nhất</th>
                                             <th>Sửa</th>
@@ -112,17 +112,17 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="category, stat : ${categories}">
+                                        <tr th:each="product, stat : ${products}">
                                             <td th:text="${stat.index + 1 + currentPage * 5}"></td>
-                                            <td th:text="${category.id}"></td>
-                                            <td th:text="${category.name}"></td>
-                                            <td th:text="${#temporals.format(category.createdAt, 'HH:mm dd-MM-yyyy')}"></td>
-                                            <td th:text="${#temporals.format(category.updatedAt, 'HH:mm dd-MM-yyyy')}"></td>
+                                            <td th:text="${product.id}"></td>
+                                            <td th:text="${product.name}"></td>
+                                            <td th:text="${#temporals.format(product.createdAt, 'HH:mm dd-MM-yyyy')}"></td>
+                                            <td th:text="${#temporals.format(product.updatedAt, 'HH:mm dd-MM-yyyy')}"></td>
 
                                             <!-- Nút mở Modal Sửa -->
                                             <td>
                                                 <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                        th:attr="data-bs-target='#editModal-' + ${category.id}">
+                                                        th:attr="data-bs-target='#editModal-' + ${product.id}">
                                                     <i class="fas fa-edit"></i> Sửa
                                                 </button>
                                             </td>
@@ -130,7 +130,7 @@
                                             <!-- Nút mở Modal Xóa -->
                                             <td>
                                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                        th:attr="data-bs-target='#deleteModal-' + ${category.id}">
+                                                        th:attr="data-bs-target='#deleteModal-' + ${product.id}">
                                                     <i class="fas fa-trash-alt"></i> Xóa
                                                 </button>
                                             </td>

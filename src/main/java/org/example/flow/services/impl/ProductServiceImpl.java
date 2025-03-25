@@ -1,5 +1,6 @@
 package org.example.flow.services.impl;
 
+import org.example.flow.dtos.ProductDTO;
 import org.example.flow.models.Product;
 import org.example.flow.repositories.ProductRepository;
 import org.example.flow.services.ProductService;
@@ -49,5 +50,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteById(String id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ProductDTO> findAllProductDTO() {
+        return null;
     }
 }
