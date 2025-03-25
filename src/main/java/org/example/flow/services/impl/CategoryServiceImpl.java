@@ -1,7 +1,9 @@
 package org.example.flow.services.impl;
 
 import org.example.flow.models.Category;
+import org.example.flow.repositories.CategoryRepository;
 import org.example.flow.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -11,40 +13,44 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+
+    private final CategoryRepository categoryRepository;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
+
     @Override
     public void save(Category entity) {
+        categoryRepository.save(entity);
 
     }
 
     @Override
     public void update(Category entity) {
+        categoryRepository.save(entity);
 
     }
 
     @Override
     public void delete(Category entity) {
+        categoryRepository.delete(entity);
 
     }
 
     @Override
     public Category get(String id) {
-        return null;
+        return categoryRepository.findById(id.toString()).get();
     }
 
     @Override
     public Collection<Category> getAll() {
-        return List.of();
+        return categoryRepository.findAll();
     }
-
 
     @Override
     public Page<Category> findAll(Pageable pageable) {
-        return null;
-    }
-
-    @Override
-    public void deleteById(String id) {
-        categoryRepository.deleteById(id);
+        return categoryRepository.findAll(pageable);
     }
 
     @Override
