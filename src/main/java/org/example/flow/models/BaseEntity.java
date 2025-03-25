@@ -17,11 +17,9 @@ import java.util.UUID;
 public class BaseEntity {
     @Id
     private String id;
-
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     private LocalDateTime updatedAt;
     @PrePersist

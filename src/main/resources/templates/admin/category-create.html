@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Bootstrap Gallery - Bootstrap Admin Templates</title>
+
+    <!-- Meta -->
+    <meta name="description" content="Marketplace for Bootstrap Admin Dashboards"/>
+    <meta name="author" content="Bootstrap Gallery"/>
+    <link rel="canonical" href="https://www.bootstrap.gallery/">
+    <meta property="og:url" content="https://www.bootstrap.gallery">
+    <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
+    <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+    <meta property="og:type" content="Website">
+    <meta property="og:site_name" content="Bootstrap Gallery">
+    <link rel="shortcut icon" th:href="@{/admin/assets/images/favicon.svg}"/>
+
+    <!-- ************* Common Css Files ************* -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" th:href="@{/admin/assets/css/bootstrap.min.css}"/>
+
+    <!-- Bootstrap font icons css -->
+    <link rel="stylesheet" th:href="@{/admin/assets/fonts/bootstrap/bootstrap-icons.css}"/>
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/admin/assets/css/main.min.css}"/>
+
+    <!-- ************* Vendor Css Files ************* -->
+    <!-- Scrollbar CSS -->
+    <link rel="stylesheet" th:href="@{/admin/assets/vendor/overlay-scroll/OverlayScrollbars.min.css}"/>
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="page-wrapper">
+
+    <!-- Bắt đầu phần đầu trang -->
+    <div th:replace="admin/layout::header"></div>
+    <!-- Kết thúc phần đầu trang -->
+
+    <!-- Bắt đầu phần nội dung -->
+    <div class="main-container">
+
+        <!-- Bắt đầu phần thân chuyển hướng -->
+        <div th:replace="admin/layout::nav"></div>
+        <!-- Kết thúc phần thân chuyển hướng -->
+
+        <!-- Content wrapper scroll start -->
+        <div class="content-wrapper-scroll">
+
+            <!-- Main header starts -->
+            <div class="main-header d-flex align-items-center justify-content-between position-relative">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="page-icon">
+                        <i class="bi bi-stickies"></i>
+                    </div>
+                    <div class="page-title d-none d-md-block">
+                        <h5>Tạo Danh Mục</h5>
+                    </div>
+                </div>
+                <!-- Live updates start -->
+                <ul class="updates d-flex align-items-end flex-column overflow-hidden" id="updates">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="bi bi-envelope-paper text-red font-1x me-2"></i>
+                            <span>12 emails from David Michaiah.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="bi bi-bar-chart text-blue font-1x me-2"></i>
+                            <span>15 new features updated successfully.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="bi bi-folder-check text-yellow font-1x me-2"></i>
+                            <span>The media folder is created successfully.</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Live updates end -->
+
+            </div>
+            <!-- Main header ends -->
+
+            <!-- Content wrapper start -->
+            <div class="content-wrapper">
+
+                <!-- Row start -->
+                <div class="row justify-content-center">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Tạo Danh Mục</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="create-invoice-wrapper">
+
+                                    <!-- Row start -->
+                                    <div class="row gx-3">
+                                        <div class="col-sm-12 col-12">
+
+                                            <!-- Row start -->
+                                            <form th:action="@{/admin-manager/category/create}" th:object="${category}"
+                                                  method="post">
+                                                <div class="row gx-12">
+                                                    <div class="col-sm-12 col-12">
+                                                        <!-- Form group start -->
+                                                        <div class="mb-3">
+                                                            <label for="customerName" class="form-label">Tên Danh
+                                                                Mục</label>
+                                                            <input type="text" id="customerName" class="form-control"
+                                                                   th:field="*{name}"
+                                                                   placeholder="Tên Danh Mục"/>
+                                                        </div>
+                                                        <!-- Form group end -->
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="text-center">
+                                                            <button type="submit" class="btn btn-success">Thêm Danh
+                                                                Mục
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <!-- Row end -->
+
+                                        </div>
+                                    </div>
+                                    <!-- Row end -->
+
+                                </div>
+
+
+                            </div>
+                            <!-- Row end -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+            <!-- Modal Thêm Thành Công -->
+            <div class="modal fade" id="addSuccessModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title">Thành công</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Danh mục đã được thêm thành công!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal thêm Thất Bại -->
+            <div class="modal fade" id="deleteErrorModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title">Thất bại</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Có lỗi xảy ra khi thêm danh mục. Vui lòng thử lại!</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- Content wrapper end -->
+
+    </div>
+    <!-- Content wrapper scroll end -->
+
+    <!-- App Footer start -->
+    <div class="app-footer">
+        <span>© Bootstrap Gallery 2024</span>
+    </div>
+    <!-- App footer end -->
+
+</div>
+<!-- Main container end -->
+
+<input type="hidden" id="addSuccess" th:value="${addSuccess}">
+<input type="hidden" id="addError" th:value="${addError}">
+</div>
+<!-- Page wrapper end -->
+
+<!-- *************
+        ************ Required JavaScript Files *************
+    ************* -->
+<!-- Required jQuery first, then Bootstrap Bundle JS -->
+<script th:src="@{/admin/assets/js/jquery.min.js}"></script>
+<script th:src="@{/admin/assets/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/assets/js/modernizr.js}"></script>
+<script th:src="@{/admin/assets/js/moment.js}"></script>
+
+<!-- ************ Vendor Js Files ************ -->
+
+<!-- Overlay Scroll JS -->
+<script th:src="@{/admin/assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/overlay-scroll/custom-scrollbar.js}"></script>
+
+<!-- News ticker -->
+<script th:src="@{/admin/assets/vendor/newsticker/newsTicker.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/newsticker/custom-newsTicker.js}"></script>
+
+<!-- Main Js Required -->
+<script th:src="@{/admin/assets/js/main.js}"></script>
+
+<!-- Bootstrap JS từ CDN -->
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let deleteSuccess = document.getElementById("addSuccess").value === "true";
+        let deleteError = document.getElementById("addError").value === "true";
+
+        if (deleteSuccess) {
+            console.log("✅ Modal thành công sẽ hiện"); // Debug kiểm tra
+            let successModal = new bootstrap.Modal(document.getElementById('addSuccessModal'));
+            successModal.show();
+        } else if (deleteError) {
+            console.log("❌ Modal thất bại sẽ hiện"); // Debug kiểm tra
+            let errorModal = new bootstrap.Modal(document.getElementById('addErrorModal'));
+            errorModal.show();
+        }
+    });
+</script>
+</body>
+
+</html>

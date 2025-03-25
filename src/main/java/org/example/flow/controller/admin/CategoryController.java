@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin-manager")
+@RequestMapping("/admin-manager/category")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -25,7 +26,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/category")
+    @GetMapping("")
     public ModelAndView category(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "5") int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -36,5 +37,57 @@ public class CategoryController {
         modelAndView.addObject("currentPage", page);
         modelAndView.addObject("totalPages", categoryPage.getTotalPages());
         return modelAndView;
+    }
+    @GetMapping("/create")
+    public ModelAndView categoryCreate(){
+        ModelAndView modelAndView = new ModelAndView("admin/category-create");
+        Category category = new Category();
+        modelAndView.addObject("category", category);
+        return modelAndView;
+    }
+    @PostMapping("/create")
+    public String categoryCreate(@ModelAttribute("category") Category category, RedirectAttributes redirectAttributes){
+        try{
+            categoryService.save(category);
+            redirectAttributes.addFlashAttribute("addSuccess", true);
+        }
+        catch(Exception e){
+            redirectAttributes.addFlashAttribute("addError", true);
+        }
+        return "redirect:/admin-manager/category/create";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editCategory(@PathVariable("id") String id,
+                               @ModelAttribute("category") Category category,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            Category existingCategory = categoryService.get(id);
+            if (existingCategory != null) {
+                existingCategory.setName(category.getName());
+                categoryService.save(existingCategory);
+                redirectAttributes.addFlashAttribute("editSuccess", true);
+            } else {
+                redirectAttributes.addFlashAttribute("editErrorNotFound", true);
+            }
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("editError", true);
+        }
+        return "redirect:/admin-manager/category";
+    }
+
+
+
+
+
+    @PostMapping("/delete/{id}")
+    public String deleteCategory(@RequestParam String id, RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.deleteById(id);
+            redirectAttributes.addFlashAttribute("deleteSuccess", true);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("deleteError", true);
+        }
+        return "redirect:/admin-manager/category";
     }
 }

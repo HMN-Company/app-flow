@@ -8,4 +8,5 @@ public interface BaseService<T> {
     void delete(T entity);
     T get(String id);
     Collection<T> getAll();
+
 }
