@@ -25,6 +25,7 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -222,6 +223,83 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
+    public ProductDTO getProductById(String id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy sản phẩm"));
+
+        // Lấy danh sách danh mục của sản phẩm
+        List<String> categoryNames = productCategoryRepository.findAllByProduct_Id(id)
+                .stream()
+                .map(pc -> pc.getCategory().getName()) // Lấy tên danh mục từ ProductCategory
+                .toList();
+
+        // Lấy danh sách ảnh của sản phẩm
+        List<String> imageUrls = mediaRepository.findAllByProduct_Id(id)
+                .stream()
+                .map(Media::getUrl) // Lấy đường dẫn ảnh
+                .toList();
+
+        // Chuyển đổi sang DTO
+        return new ProductDTO(product, categoryNames, imageUrls);
+    }
+
+    @Override
+    @Transactional
+    public boolean updateProduct(ProductDTO productDTO, MultipartFile[] imageFiles) {
+        try {
+            // Lấy sản phẩm từ DB
+            Product product = productRepository.findById(productDTO.getId())
+                    .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + productDTO.getId()));
+
+            // Cập nhật thông tin sản phẩm
+            product.setName(productDTO.getName());
+            product.setDescription(productDTO.getDescription());
+            product.setPrice(productDTO.getPrice());
+            product.setDiscount(productDTO.getDiscount());
+            product.setUpdatedAt(LocalDateTime.now());
+
+            // Lưu sản phẩm
+            Product savedProduct = productRepository.save(product);
+
+            // Xóa danh mục cũ trước khi thêm mới
+            productRepository.deleteProductCategories(productDTO.getId());
+            for (String categoryName : productDTO.getCategoryNames()) {
+                Category category = categoryRepository.findByName(categoryName)
+                        .orElseThrow(() -> new RuntimeException("Danh mục không tồn tại: " + categoryName));
+                ProductCategory productCategory = new ProductCategory();
+                productCategory.setProduct(savedProduct);
+                productCategory.setCategory(category);
+                productCategoryRepository.save(productCategory);
+            }
+            // Xóa ảnh cũ trước khi thêm mới
+            productRepository.deleteProductImages(productDTO.getId());
+            for (String imageUrl : productDTO.getImageUrls()) {
+                Media media = new Media();
+                String url = imageUrl.replace("[", "").replace("]", "").replace("\"", "");
+                media.setUrl(url);
+                media.setProduct(savedProduct);
+                mediaRepository.save(media);
+            }
+
+            // Lưu ảnh mới
+            for (MultipartFile file : imageFiles) {
+                String imageUrl = uploadFile(file);
+                if (imageUrl == null || imageUrl.isEmpty()) {
+                    throw new RuntimeException("Lỗi upload ảnh");
+                }
+                Media media = new Media();
+                media.setUrl(imageUrl);
+                media.setProduct(savedProduct);
+                mediaRepository.save(media);
+            }
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi để debug
+            throw new RuntimeException("Lỗi khi cập nhật sản phẩm", e); // Ném lỗi để rollback
+        }
+    }
 
 
 }
