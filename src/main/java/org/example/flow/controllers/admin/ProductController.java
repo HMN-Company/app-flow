@@ -2,6 +2,7 @@ package org.example.flow.controllers.admin;
 
 import org.example.flow.dtos.ProductDTO;
 import org.example.flow.models.Category;
+import org.example.flow.models.Product;
 import org.example.flow.services.CategoryService;
 import org.example.flow.services.ProductService;
 import org.springframework.data.domain.Page;
@@ -84,6 +85,30 @@ public class ProductController {
         }
         return "redirect:/admin-manager/product/create"; // Chuyển hướng về danh sách sản phẩm
     }
+
+    @GetMapping("/edit/{id}")
+    public String editProduct(@PathVariable String id, Model model) {
+        ProductDTO productDTO = productService.getProductById(id); // Trả về DTO thay vì entity
+        model.addAttribute("product", productDTO);
+        model.addAttribute("categories", categoryService.getAll());
+        return "admin/product_edit"; // Trả về trang chỉnh sửa
+    }
+
+
+    // Xử lý lưu sản phẩm (kèm hình ảnh)
+    @PostMapping("/update")
+    public String updateProduct(@ModelAttribute("product") ProductDTO productDTO,
+                                @RequestParam("imageFiles") MultipartFile[] imageFiles,
+                                RedirectAttributes redirectAttributes) {
+        boolean update = productService.updateProduct(productDTO, imageFiles);
+        if (update) {
+            redirectAttributes.addFlashAttribute("addSuccess", true);
+        } else {
+            redirectAttributes.addFlashAttribute("addError", true);
+        }
+        return "redirect:/admin-manager/product/create"; // Chuyển hướng về danh sách sản phẩm
+    }
+
 
 
 }

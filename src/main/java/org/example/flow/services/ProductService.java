@@ -20,5 +20,7 @@ public interface ProductService extends BaseService<Product> {
     boolean deleteProduct(String id);
 
     public boolean createProduct(ProductDTO productDTO, MultipartFile[] imageFiles);
+    public ProductDTO getProductById(String id);
+    public boolean updateProduct(ProductDTO productDTO, MultipartFile[] imageFiles);
 
 }

@@ -3,6 +3,8 @@ package org.example.flow.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.flow.models.Product;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,4 +22,15 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    public ProductDTO(Product product, List<String> categoryNames, List<String> imageUrls) {
+        this.id = product.getId();
+        this.name = product.getName();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.discount = product.getDiscount();
+        this.imageUrls = imageUrls;
+        this.categoryNames = categoryNames;
+        this.createdAt = product.getCreatedAt();
+        this.updatedAt = product.getUpdatedAt();
+    }
 }

@@ -121,11 +121,6 @@
                                         </div>
                                     </form>
 
-
-
-
-
-
                                     <table class="table table-bordered m-0">
                                         <thead>
                                         <tr>
@@ -160,10 +155,10 @@
 <!--                                            <td th:text="${#temporals.format(product.createdAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
 <!--                                            <td th:text="${#temporals.format(product.updatedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
                                             <td>
-                                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                        th:attr="data-bs-target='#editModal-' + ${product.id}">
-                                                    <i class="fas fa-edit"></i> Sửa
-                                                </button>
+                                                <a class="btn btn-warning"
+                                                        th:href="@{/admin-manager/product/edit/{id}(id=${product.id})}">
+                                                    <i class="fas fa-edit"></i> Chỉnh sửa
+                                                </a>
                                             </td>
                                             <td>
                                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
