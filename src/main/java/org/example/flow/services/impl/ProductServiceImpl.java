@@ -134,7 +134,7 @@ public class ProductServiceImpl implements ProductService {
         Collection<Product> products = productRepository.findAll();
         Collection<ProductResponse> productResponses = new ArrayList<>();
         for (Product product : products) {
-            Collection<String> media = mediaService.getMediasByProductId(product.getId());
+            Collection<String> media = mediaService.getMediaUrlsByProductId(product.getId());
             ProductResponse productResponse = new ProductResponse();
             productResponse.setId(product.getId());
             productResponse.setName(product.getName());
