@@ -19,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     Page<Product> findAllByNameContaining(String name, Pageable pageable);
     Page<Product> findAll(Pageable pageable);
     @Query(value = """
-        SELECT p.id, p.name, p.description, p.price, p.discount, 
+        SELECT p.id, p.name, p.description, p.price, p.discount, p.slot, p.is_stock, p.tag, quantity_sell,
                COALESCE(m.urls, '') AS imageUrls, 
                COALESCE(c.names, '') AS categoryNames, 
                p.created_at, p.updated_at 
@@ -39,7 +39,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     List<Object[]> findAllProductDTO();
 
     @Query(value = """
-    SELECT p.id, p.name, p.description, p.price, p.discount, 
+    SELECT p.id, p.name, p.description, p.price, p.discount,  p.slot, p.is_stock, p.tag, quantity_sell,
            COALESCE(m.urls, '') AS imageUrls, 
            COALESCE(c.names, '') AS categoryNames, 
            p.created_at, p.updated_at 
@@ -62,7 +62,7 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     Page<Object[]> findAllProductDTO(Pageable pageable);
 
     @Query(value = """
-    SELECT p.id, p.name, p.description, p.price, p.discount, 
+    SELECT p.id, p.name, p.description, p.price, p.discount,  p.slot, p.is_stock, p.tag, quantity_sell,
            COALESCE(m.urls, '') AS imageUrls, 
            COALESCE(c.names, '') AS categoryNames, 
            p.created_at, p.updated_at 

@@ -18,4 +18,9 @@ public class Product extends BaseEntity {
     private double price;
     @Range(min = 0, max = 100)
     private double discount;
+    @Range(min = 0)
+    private int slot;
+    private boolean isStock = true;
+    private String tag;
+    private int quantitySell;
 }

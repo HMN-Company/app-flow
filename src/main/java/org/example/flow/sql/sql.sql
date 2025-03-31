@@ -1,15 +1,15 @@
 use `app-flow`;
-INSERT INTO product (id, created_at, updated_at, description, discount, name, price) VALUES
-                                                                                         (1, '2024-03-01 10:00:00', '2024-03-05 12:00:00', 'Sản phẩm 1 mô tả', 10.5, 'Sản phẩm 1', 100000),
-                                                                                         (2, '2024-03-02 11:00:00', '2024-03-06 14:00:00', 'Sản phẩm 2 mô tả', 5.0, 'Sản phẩm 2', 150000),
-                                                                                         (3, '2024-03-03 09:30:00', '2024-03-07 16:00:00', 'Sản phẩm 3 mô tả', 8.0, 'Sản phẩm 3', 200000),
-                                                                                         (4, '2024-03-04 15:45:00', '2024-03-08 18:30:00', 'Sản phẩm 4 mô tả', 12.0, 'Sản phẩm 4', 250000),
-                                                                                         (5, '2024-03-05 08:20:00', '2024-03-09 20:15:00', 'Sản phẩm 5 mô tả', 15.0, 'Sản phẩm 5', 300000),
-                                                                                         (6, '2024-03-06 12:10:00', '2024-03-10 21:45:00', 'Sản phẩm 6 mô tả', 20.0, 'Sản phẩm 6', 350000),
-                                                                                         (7, '2024-03-07 14:50:00', '2024-03-11 22:10:00', 'Sản phẩm 7 mô tả', 7.5, 'Sản phẩm 7', 400000),
-                                                                                         (8, '2024-03-08 16:30:00', '2024-03-12 23:00:00', 'Sản phẩm 8 mô tả', 9.0, 'Sản phẩm 8', 450000),
-                                                                                         (9, '2024-03-09 18:40:00', '2024-03-13 23:50:00', 'Sản phẩm 9 mô tả', 11.0, 'Sản phẩm 9', 500000),
-                                                                                         (10, '2024-03-10 19:55:00', '2024-03-14 23:59:00', 'Sản phẩm 10 mô tả', 13.0, 'Sản phẩm 10', 550000);
+INSERT INTO product (id, created_at, updated_at, description, discount, is_stock, name, price, quantity_sell, slot, tag) VALUES
+                                                                                                                             (1, '2024-03-01 10:00:00', '2024-03-05 12:00:00', 'Sản phẩm 1 mô tả', 10.5, TRUE, 'Sản phẩm 1', 100000, 50, 1, 'Hot'),
+                                                                                                                             (2, '2024-03-02 11:00:00', '2024-03-06 14:00:00', 'Sản phẩm 2 mô tả', 5.0, TRUE, 'Sản phẩm 2', 150000, 30, 2, 'New'),
+                                                                                                                             (3, '2024-03-03 09:30:00', '2024-03-07 16:00:00', 'Sản phẩm 3 mô tả', 8.0, TRUE, 'Sản phẩm 3', 200000, 20, 3, 'Sale'),
+                                                                                                                             (4, '2024-03-04 15:45:00', '2024-03-08 18:30:00', 'Sản phẩm 4 mô tả', 12.0, TRUE, 'Sản phẩm 4', 250000, 15, 4, 'Hot'),
+                                                                                                                             (5, '2024-03-05 08:20:00', '2024-03-09 20:15:00', 'Sản phẩm 5 mô tả', 15.0, TRUE, 'Sản phẩm 5', 300000, 10, 5, 'Limited'),
+                                                                                                                             (6, '2024-03-06 12:10:00', '2024-03-10 21:45:00', 'Sản phẩm 6 mô tả', 20.0, TRUE, 'Sản phẩm 6', 350000, 25, 6, 'New'),
+                                                                                                                             (7, '2024-03-07 14:50:00', '2024-03-11 22:10:00', 'Sản phẩm 7 mô tả', 7.5, TRUE, 'Sản phẩm 7', 400000, 40, 7, 'Sale'),
+                                                                                                                             (8, '2024-03-08 16:30:00', '2024-03-12 23:00:00', 'Sản phẩm 8 mô tả', 9.0, TRUE, 'Sản phẩm 8', 450000, 60, 8, 'Hot'),
+                                                                                                                             (9, '2024-03-09 18:40:00', '2024-03-13 23:50:00', 'Sản phẩm 9 mô tả', 11.0, TRUE, 'Sản phẩm 9', 500000, 35, 9, 'Limited'),
+                                                                                                                             (10, '2024-03-10 19:55:00', '2024-03-14 23:59:00', 'Sản phẩm 10 mô tả', 13.0, TRUE, 'Sản phẩm 10', 550000, 70, 10, 'New');
 
 INSERT INTO orders (id, created_at, updated_at, address, email, full_name, phone, status) VALUES
                                                                                               (1, '2024-03-15 08:30:00', '2024-03-15 08:30:00', '123 Đường ABC, Hà Nội', 'customer1@example.com', 'Nguyễn Văn A', '0987654321', 'PENDING'),
@@ -140,4 +140,18 @@ FROM Product p
 
 
 
-DELETE FROM product_category WHERE product_id = :productId
+DELETE FROM product_category WHERE product_id = :productId;
+
+
+
+SELECT o.id AS order_id, o.created_at, o.status,
+       o.full_name, o.email, o.phone, o.address,
+       SUM(od.quantity * p.price) AS total_amount
+FROM orders o
+         JOIN order_details od ON o.id = od.order_id
+         JOIN product p ON od.product_id = p.id
+GROUP BY o.id, o.created_at, o.status,
+         o.full_name, o.email, o.phone, o.address
+ORDER BY o.created_at DESC;
+
+

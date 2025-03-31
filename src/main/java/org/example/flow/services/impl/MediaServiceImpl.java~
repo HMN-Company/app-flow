@@ -46,7 +46,7 @@ public class MediaServiceImpl implements MediaService {
     }
 
     @Override
-    public Collection<String> getMediaUrlsByProductId(String id) {
+    public Collection<String> getMediasByProductId(String id) {
         return mediaRepository.findMediaUrlByProductId(id);
     }
 }

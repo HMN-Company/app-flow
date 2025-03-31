@@ -1,4 +1,4 @@
-package org.example.flow.controllers.api_admin;
+package org.example.flow.controllers.admin.api_admin;
 
 
 import org.example.flow.dtos.ProductDTO;

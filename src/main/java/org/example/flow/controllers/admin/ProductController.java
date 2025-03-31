@@ -2,7 +2,6 @@ package org.example.flow.controllers.admin;
 
 import org.example.flow.dtos.ProductDTO;
 import org.example.flow.models.Category;
-import org.example.flow.models.Product;
 import org.example.flow.services.CategoryService;
 import org.example.flow.services.ProductService;
 import org.springframework.data.domain.Page;
@@ -15,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-
 
 @Controller
 @RequestMapping("admin-manager/product")
@@ -108,7 +106,4 @@ public class ProductController {
         }
         return "redirect:/admin-manager/product"; // Chuyển hướng về danh sách sản phẩm
     }
-
-
-
 }

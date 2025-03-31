@@ -267,151 +267,21 @@
                         </svg>
                     </button>
                     <div class="row featured-product-slider">
-                        <div class="col-12">
+                        <div class="col-12" th:each="product : ${products}">
                             <div class="product-card">
                                 <figure>
-                                    <img th:src="@{/assets/media/products/p-1.png}" alt="Hoa Lily Lane">
+                                    <img th:src="@{${product.image}}" alt="Hoa Lily Lane">
                                     <ul class="unstyled action-list">
                                         <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
                                         <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
                                     </ul>
                                 </figure>
                                 <div class="text-block">
-                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16">Lily Lane</a>
-                                    <p class="mb-24">Bó hoa lily trắng tinh khôi, kết hợp cùng baby breath tạo nên vẻ đẹp thuần khiết và sang trọng. Thích hợp cho các dịp kỷ niệm đặc biệt.</p>
+                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16" th:text="${product.name}">Lily Lane</a>
+                                    <p class="mb-24" th:text="${product.description}">Bó hoa lily trắng tinh khôi, kết hợp cùng baby breath tạo nên vẻ đẹp thuần khiết và sang trọng. Thích hợp cho các dịp kỷ niệm đặc biệt.</p>
                                     <div class="price mb-32">
-                                        <del class="h6 dark-gray">1.250.000₫</del>
-                                        <h3>1.000.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a href="javascript:;" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-5.png}" alt="Hoa Hồng Pastel">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16">Hồng Pastel</a>
-                                    <p class="mb-24">Bó hoa hồng pastel nhẹ nhàng với tông màu hồng phấn và kem, tạo nên vẻ đẹp lãng mạn và tinh tế. Lựa chọn hoàn hảo cho những dịp kỷ niệm ngọt ngào.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.375.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a href="javascript:;" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-6.png}" alt="Hoa Mộc Lan">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16">Mộc Lan Hồng</a>
-                                    <p class="mb-24">Bó hoa mộc lan hồng quý phái, kết hợp cùng các loại hoa phụ tạo nên vẻ đẹp sang trọng và độc đáo. Thích hợp làm quà tặng cho các dịp đặc biệt.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.750.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a href="javascript:;" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-4.png}" alt="Hoa Cẩm Tú Cầu">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16">Cẩm Tú Cầu Xanh</a>
-                                    <p class="mb-24">Bó hoa cẩm tú cầu xanh tươi mát, kết hợp với các loại hoa phụ tạo nên vẻ đẹp thanh khiết và sang trọng. Thích hợp trang trí không gian hoặc làm quà tặng.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.150.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a href="javascript:;" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-5.png}" alt="Hoa Oải Hương">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16">Oải Hương Tím</a>
-                                    <p class="mb-24">Bó hoa oải hương tím thơm ngát, mang đến không gian thư giãn và lãng mạn. Lựa chọn tuyệt vời cho những người yêu thích hương thơm tự nhiên.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.275.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a href="javascript:;" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-6.png}" alt="Hoa Mẫu Đơn">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product/{id}(id=${product.id})}" class="h4 mb-16">Mẫu Đơn Hồng</a>
-                                    <p class="mb-24">Bó hoa mẫu đơn hồng quý phái với những cánh hoa xếp lớp tinh tế. Biểu tượng của sự sang trọng và đẳng cấp, thích hợp cho các dịp đặc biệt.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.650.000₫</h3>
+                                        <del class="h6 dark-gray" th:text="${product.oldPrice}">1.250.000₫</del>
+                                        <h3 th:text="${product.newPrice}">1.000.000₫</h3>
                                     </div>
                                     <div class="action-block">
                                         <div class="quantity-wrap">
@@ -519,22 +389,22 @@
                 <div class="banner wow fadeInUp" data-wow-delay="0.4s">
                     <div class="content">
                         <div class="bg-shape-vector">
-                            <img src="@{/assets/media/bg/banner-bg-vector.png}" alt="">
+                            <img th:src="@{/assets/media/bg/banner-bg-vector.png}" alt="">
                         </div>
                         <div class="row justify-content-end">
                             <div class="col-lg-6 col-6 order-lg-2">
                                 <div class="text-end img-block">
-                                    <img src="@{/assets/media/bg/banner-img-xl.png}" alt="" class="d-lg-block d-none ms-auto">
-                                    <img src="@{/assets/media/bg/banner-img.png}" alt="" class="d-lg-none">
+                                    <img th:src="@{/assets/media/bg/banner-img-xl.png}" alt="" class="d-lg-block d-none ms-auto">
+                                    <img th:src="@{/assets/media/bg/banner-img.png}" alt="" class="d-lg-none">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-12 order-lg-1">
                                 <div class="text-block">
-                                    <h3 class="mb-16">ƯU ĐÃI ĐẶC BIỆT</h3>
-                                    <span class="title-1">HÈ</span>
-                                    <span class="title-2 mb-12">Giảm giá</span>
-                                    <h1 class="mb-32">LÊN ĐẾN 50% OFF</h1>
-                                    <a th:href="@{/shop-grid}" class="cus-btn mx-auto">
+                                    <h3 class="mb-16" th:text="${event.title1}">ƯU ĐÃI ĐẶC BIỆT</h3>
+                                    <span class="title-1" th:text="${event.title2}">HÈ</span>
+                                    <span class="title-2 mb-12" th:text="${event.title2}">Giảm giá</span>
+                                    <h1 class="mb-32" th:text="${event.title2}">LÊN ĐẾN 50% OFF</h1>
+                                    <a th:href="@{/event.urlRedirect}" class="cus-btn mx-auto">
                                         Mua Ngay
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                                             <path d="M20.734 14.4783C18.1512 20.8861 11.9637 17.0096 11.9637 17.0096C10.0652 20.8439 6.92931 23.3096 3.31056 23.3236C2.55587 23.3236 2.53243 22.1799 3.31056 22.1799C6.32931 22.1658 8.95899 20.1783 10.6793 17.0189C8.75274 17.7642 5.11993 18.3267 3.10431 13.1658C8.21368 11.0611 10.5621 13.6908 11.4621 15.2986C11.9262 14.1549 12.259 12.9127 12.4746 11.5627C12.4746 11.5627 5.92618 12.5892 5.46681 6.96425C11.0496 4.71893 12.6199 10.5596 12.6199 10.5596C12.6949 9.77675 12.7746 8.09393 12.7746 8.05643C12.7746 8.05643 7.79181 4.60175 10.9887 0.312683C16.8293 2.32831 13.8668 7.92518 13.8668 7.92518C13.8902 8.00018 13.8902 9.04081 13.8668 9.49081C13.8668 9.49081 15.9856 5.31893 20.2606 6.7955C20.0637 13.0767 13.609 11.783 13.609 11.783C13.4027 13.0674 13.084 14.2861 12.6715 15.4158C12.6715 15.4158 16.5621 11.1127 20.734 14.4783Z"/>
@@ -709,12 +579,12 @@
                         <div class="col-lg-4">
                             <div class="blog-card">
                                 <figure>
-                                    <img src="assets/media/blogs/b-1.png" alt="Ảnh minh họa">
+                                    <img th:src="@{/assets/media/blogs/b-1.png}" alt="Ảnh minh họa">
                                 </figure>
                                 <div class="text-block">
                                     <div class="top-row mb-24">
                                         <div class="author">
-                                            <img src="assets/media/users/ua-1.png" alt="Ảnh tác giả">
+                                            <img th:src="@{/assets/media/users/ua-1.png}" alt="Ảnh tác giả">
                                             <span class="bold-text color-primary">By: Williams</span>
                                         </div>
                                         <span class="date">14 Tháng 4, 2024</span>

@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Role extends BaseEntity {
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private Roles role;
     @ManyToOne
     private User user;
 }

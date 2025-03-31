@@ -1,6 +1,9 @@
 package org.example.flow.services.impl;
 
+
+import jakarta.transaction.Transactional;
 import org.example.flow.dtos.ProductDTO;
+import org.example.flow.dtos.ProductResponse;
 import org.example.flow.models.Category;
 import org.example.flow.models.Media;
 import org.example.flow.models.Product;
@@ -10,11 +13,11 @@ import org.example.flow.repositories.MediaRepository;
 import org.example.flow.repositories.ProductCategoryRepository;
 import org.example.flow.repositories.ProductRepository;
 import org.example.flow.services.FileStorageService;
+import org.example.flow.services.MediaService;
 import org.example.flow.services.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -25,12 +28,11 @@ import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -40,15 +42,21 @@ public class ProductServiceImpl implements ProductService {
     private final MediaRepository mediaRepository;
     private final FileStorageService fileStorageService; // Dịch vụ lưu ảnh
     private final CategoryRepository categoryRepository;
+    private final MediaService mediaService;
 
 
-
-    public ProductServiceImpl(ProductRepository productRepository, ProductCategoryRepository productCategoryRepository, MediaRepository mediaRepository, FileStorageService fileStorageService, CategoryRepository categoryRepository) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              ProductCategoryRepository productCategoryRepository,
+                              MediaRepository mediaRepository,
+                              FileStorageService fileStorageService,
+                              CategoryRepository categoryRepository,
+                              MediaService mediaService) {
         this.productRepository = productRepository;
         this.productCategoryRepository = productCategoryRepository;
         this.mediaRepository = mediaRepository;
         this.fileStorageService = fileStorageService;
         this.categoryRepository = categoryRepository;
+        this.mediaService = mediaService;
     }
 
     @Override
@@ -114,20 +122,41 @@ public class ProductServiceImpl implements ProductService {
                 (String) obj[2], // description
                 (Double) obj[3], // price
                 (Double) obj[4], // discount
-                obj[5] != null ? List.of(((String) obj[5]).split(", ")) : List.of(), // imageUrls
-                obj[6] != null ? List.of(((String) obj[6]).split(", ")) : List.of(), // categoryNames
-                obj[7] != null ? LocalDateTime.parse(obj[7].toString(), formatter) : null, // createdAt
-                obj[8] != null ? LocalDateTime.parse(obj[8].toString(), formatter) : null // updatedAt
+                (Integer) obj[5], // slot
+                (Boolean) obj[6], // is_stock
+                (String) obj[7], //  tag
+                (Integer) obj[8], //
+                obj[9] != null ? List.of(((String) obj[9]).split(", ")) : List.of(), // imageUrls
+                obj[10] != null ? List.of(((String) obj[10]).split(", ")) : List.of(), // categoryNames
+                obj[11] instanceof Timestamp ? ((Timestamp) obj[11]).toLocalDateTime() : null, // createdAt
+                obj[12] instanceof Timestamp ? ((Timestamp) obj[12]).toLocalDateTime() : null  // updatedAt
         );
     }
 
+    @Override
+    public Collection<ProductResponse> getProducts() {
+        Collection<Product> products = productRepository.findAll();
+        Collection<ProductResponse> productResponses = new ArrayList<>();
+        for (Product product : products) {
+            Collection<String> media = mediaService.getMediaUrlsByProductId(product.getId());
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setId(product.getId());
+            productResponse.setName(product.getName());
+            productResponse.setDescription(product.getDescription());
+            productResponse.setImage(media.stream().findFirst().orElse(null));
+            productResponse.setImages(media);
+            productResponse.setOldPrice(product.getPrice());
+            productResponse.setNewPrice(product.getPrice() - product.getPrice() * (product.getDiscount() / 100));
+            productResponses.add(productResponse);
+        }
+        return productResponses;
+    }
 
     @Override
     public Page<ProductDTO> findAllProductDTO(Pageable pageable) {
         return productRepository.findAllProductDTO(pageable)
                 .map(this::mapToProductDTO1);
     }
-
 
 
     private ProductDTO mapToProductDTO1(Object[] obj) {
@@ -139,17 +168,22 @@ public class ProductServiceImpl implements ProductService {
                 (String) obj[2], // description
                 (Double) obj[3], // price
                 (Double) obj[4], // discount
-                obj[5] != null ? List.of(((String) obj[5]).split(", ")) : List.of(), // imageUrls
-                obj[6] != null ? List.of(((String) obj[6]).split(", ")) : List.of(), // categoryNames
-                obj[7] instanceof Timestamp ? ((Timestamp) obj[7]).toLocalDateTime() : null, // createdAt
-                obj[8] instanceof Timestamp ? ((Timestamp) obj[8]).toLocalDateTime() : null  // updatedAt
+                (Integer) obj[5], // slot
+                (Boolean) obj[6], // is_stock
+                (String) obj[7], //  tag
+                (Integer) obj[8], //
+                obj[9] != null ? List.of(((String) obj[9]).split(", ")) : List.of(), // imageUrls
+                obj[10] != null ? List.of(((String) obj[10]).split(", ")) : List.of(), // categoryNames
+                obj[11] instanceof Timestamp ? ((Timestamp) obj[11]).toLocalDateTime() : null, // createdAt
+                obj[12] instanceof Timestamp ? ((Timestamp) obj[12]).toLocalDateTime() : null  // updatedAt
         );
     }
 
     @Override
     public Page<ProductDTO> searchProducts(String name, String category, Pageable pageable) {
         return productRepository.searchProducts(name, category, pageable)
-                .map(this::mapToProductDTO1);    }
+                .map(this::mapToProductDTO1);
+    }
 
     @Override
     @Transactional
@@ -173,6 +207,10 @@ public class ProductServiceImpl implements ProductService {
             product.setDescription(productDTO.getDescription());
             product.setPrice(productDTO.getPrice());
             product.setDiscount(productDTO.getDiscount());
+            product.setSlot(productDTO.getSlot());
+            product.setTag(product.getTag());
+            product.setStock(productDTO.isStock());
+            product.setQuantitySell(productDTO.getQuantitySell());
             product.setCreatedAt(LocalDateTime.now());
             product.setUpdatedAt(LocalDateTime.now());
 
@@ -202,6 +240,7 @@ public class ProductServiceImpl implements ProductService {
             return false;
         }
     }
+
     public String uploadFile(MultipartFile file) {
         try {
             // **🔹 Đường dẫn thư mục lưu ảnh**
@@ -258,7 +297,10 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(productDTO.getPrice());
             product.setDiscount(productDTO.getDiscount());
             product.setUpdatedAt(LocalDateTime.now());
-
+            product.setSlot(productDTO.getSlot());
+            product.setTag(product.getTag());
+            product.setStock(productDTO.isStock());
+            product.setQuantitySell(productDTO.getQuantitySell());
             // Lưu sản phẩm
             Product savedProduct = productRepository.save(product);
 
@@ -300,6 +342,4 @@ public class ProductServiceImpl implements ProductService {
             throw new RuntimeException("Lỗi khi cập nhật sản phẩm", e); // Ném lỗi để rollback
         }
     }
-
-
 }
