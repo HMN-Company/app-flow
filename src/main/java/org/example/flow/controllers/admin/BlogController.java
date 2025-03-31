@@ -71,5 +71,19 @@ public class BlogController {
         return "redirect:/admin-manager/blog";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editBlog(Model model, @PathVariable String id) {
+        Blog blog = blogService.get(id);
+        model.addAttribute("blog", blog);
+        return "admin/blog-edit";
+
+    }
+
+    @PostMapping("/update")
+    public String updateBlog(Model model, @ModelAttribute("blog") Blog blog) {
+        blogService.update(blog);
+        return "redirect:/admin-manager/blog";
+    }
+
 
 }

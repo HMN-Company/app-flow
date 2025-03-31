@@ -104,16 +104,11 @@
                             <div class="card-body">
 
                                 <!-- Row start -->
-                                <form th:action="@{/admin-manager/blog/create}" method="post"
+                                <form th:action="@{/admin-manager/blog/update}" method="post"
                                       th:object="${blog}" enctype="multipart/form-data">
 
                                     <div class="row gx-3">
-                                        <!-- Ảnh background -->
-                                        <div class="col-lg-12 col-sm-12 col-12">
-                                            <label class="form-label">Ảnh đại diện của blog</label>
-                                            <input type="file" name="backgroundMultipartFile"  required class="form-control" id="background" onchange="previewImageBackground()" accept="image/*"/>
-                                            <div id="imagePreviewBackground" class="mt-3 d-flex flex-wrap"></div>
-                                        </div>
+
                                         <div class="col-lg-6 col-sm-12 col-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Người viết</label>
@@ -121,13 +116,12 @@
                                                        th:field="*{author}" required/>
                                             </div>
                                         </div>
+                                        <input type="hidden" th:field="*{id}">
+                                        <input type="hidden" th:field="*{image1}">
+                                        <input type="hidden" th:field="*{image2}">
+                                        <input type="hidden" th:field="*{avatarAuthor}">
+                                        <input type="hidden" th:field="*{background}">
 
-
-                                        <div class="col-lg-6 col-sm-12 col-12">
-                                            <label class="form-label">Avatar người viết</label>
-                                            <input type="file" name="avatarAuthorMultipartFile" required  class="form-control" id="avatarAuthor" onchange="previewImageAvatar()" accept="image/*"/>
-                                            <div id="imagePreviewAvatar" class="mt-3 d-flex flex-wrap"></div>
-                                        </div>
                                         <!-- Tiêu đề -->
                                         <div class="col-lg-12 col-sm-12 col-12">
                                             <div class="mb-3">
@@ -187,18 +181,6 @@
                                             </div>
                                         </div>
 
-                                        <!-- Ảnh nội dung thứ 1 -->
-                                        <div class="col-lg-6 col-sm-12 col-12">
-                                            <label class="form-label">Ảnh nội dung thứ 1</label>
-                                            <input type="file" name="image1MultipartFile"  required class="form-control" id="image1" onchange="previewImageContent1()" accept="image/*"/>
-                                            <div id="imagePreviewContent1" class="mt-3 d-flex flex-wrap"></div>
-                                        </div>
-                                        <!-- Ảnh nội dung thứ 1 -->
-                                        <div class="col-lg-6 col-sm-12 col-12">
-                                            <label class="form-label">Ảnh nội dung thứ 2</label>
-                                            <input type="file" name="image2MultipartFile"  required class="form-control" id="image2" onchange="previewImageContent2()" accept="image/*"/>
-                                            <div id="imagePreviewContent2" class="mt-3 d-flex flex-wrap"></div>
-                                        </div>
 
                                         <!-- Nội dung 5 -->
                                         <div class="col-sm-12 col-12">
