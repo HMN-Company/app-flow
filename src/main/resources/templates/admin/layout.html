@@ -95,19 +95,20 @@
                     </li>
                     <li>
                         <a th:href="@{/admin-manager/category}">
-                            <i class="bi bi-window-split"></i>
+                            <i class="bi bi-list-check"></i>
                             <span class="menu-text">Danh Mục Sản Phẩm</span>
                         </a>
                     </li>
                     <li>
-                        <a href="widgets.html">
-                            <i class="bi bi-window-split"></i>
-                            <span class="menu-text">Danh Thu</span>
+                        <a th:href="@{/admin-manager/blog}">
+                            <i class="bi bi-journal-text"></i>
+                            <span class="menu-text">Quản lý Blog</span>
                         </a>
                     </li>
+
                     <li>
-                        <a th:href="@{/admin/products/add}">
-                            <i class="bi bi-plus-square"></i>
+                        <a th:href="@{/admin-manager/product/create}">
+                            <i class="bi bi bi-flower1"></i>
                             <span class="menu-text">Thêm Sản Phẩm</span>
                         </a>
                     </li>
@@ -115,6 +116,12 @@
                         <a th:href="@{/admin-manager/category/create}">
                             <i class="bi bi-plus-square"></i>
                             <span class="menu-text">Thêm Danh Mục Sản Phẩm</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin-manager/blog/create}">
+                            <i class="bi bi-journal-plus"></i>
+                            <span class="menu-text">Thêm mới Blog</span>
                         </a>
                     </li>
                 </ul>

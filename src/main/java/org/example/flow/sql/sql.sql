@@ -44,6 +44,42 @@ INSERT INTO media (id, created_at, updated_at, url, product_id) VALUES
 
 
 
+INSERT INTO blog (
+    id, created_at, updated_at, author, author_sub_content, background,
+    content1, content2, content3, content4, content5,
+    image1, image2, sub_content, title, avatar_author
+) VALUES
+      (1, NOW(), NOW(), 'Nguyễn Văn A', 'Chuyên gia công nghệ', 'bg1.jpg',
+       'Nội dung 1 - Phần 1', 'Nội dung 1 - Phần 2', 'Nội dung 1 - Phần 3', 'Nội dung 1 - Phần 4', 'Nội dung 1 - Phần 5',
+       'img1_1.jpg', 'img1_2.jpg', 'Tóm tắt bài viết 1', 'Tiêu đề bài viết 1', 'avatar1.jpg'),
+
+      (2, NOW(), NOW(), 'Trần Thị B', 'Blogger du lịch', 'bg2.jpg',
+       'Nội dung 2 - Phần 1', 'Nội dung 2 - Phần 2', 'Nội dung 2 - Phần 3', 'Nội dung 2 - Phần 4', 'Nội dung 2 - Phần 5',
+       'img2_1.jpg', 'img2_2.jpg', 'Tóm tắt bài viết 2', 'Tiêu đề bài viết 2', 'avatar2.jpg'),
+
+      (3, NOW(), NOW(), 'Lê Hoàng C', 'Nhà báo', 'bg3.jpg',
+       'Nội dung 3 - Phần 1', 'Nội dung 3 - Phần 2', 'Nội dung 3 - Phần 3', 'Nội dung 3 - Phần 4', 'Nội dung 3 - Phần 5',
+       'img3_1.jpg', 'img3_2.jpg', 'Tóm tắt bài viết 3', 'Tiêu đề bài viết 3', 'avatar3.jpg'),
+
+      (4, NOW(), NOW(), 'Phạm Minh D', 'Chuyên viên Marketing', 'bg4.jpg',
+       'Nội dung 4 - Phần 1', 'Nội dung 4 - Phần 2', 'Nội dung 4 - Phần 3', 'Nội dung 4 - Phần 4', 'Nội dung 4 - Phần 5',
+       'img4_1.jpg', 'img4_2.jpg', 'Tóm tắt bài viết 4', 'Tiêu đề bài viết 4', 'avatar4.jpg'),
+
+      (5, NOW(), NOW(), 'Hoàng Văn E', 'Chuyên gia tài chính', 'bg5.jpg',
+       'Nội dung 5 - Phần 1', 'Nội dung 5 - Phần 2', 'Nội dung 5 - Phần 3', 'Nội dung 5 - Phần 4', 'Nội dung 5 - Phần 5',
+       'img5_1.jpg', 'img5_2.jpg', 'Tóm tắt bài viết 5', 'Tiêu đề bài viết 5', 'avatar5.jpg'),
+
+      (6, NOW(), NOW(), 'Mai Thị F', 'Chuyên gia ẩm thực', 'bg6.jpg',
+       'Nội dung 6 - Phần 1', 'Nội dung 6 - Phần 2', 'Nội dung 6 - Phần 3', 'Nội dung 6 - Phần 4', 'Nội dung 6 - Phần 5',
+       'img6_1.jpg', 'img6_2.jpg', 'Tóm tắt bài viết 6', 'Tiêu đề bài viết 6', 'avatar6.jpg'),
+
+      (7, NOW(), NOW(), 'Đỗ Thành G', 'Nhà sáng lập startup', 'bg7.jpg',
+       'Nội dung 7 - Phần 1', 'Nội dung 7 - Phần 2', 'Nội dung 7 - Phần 3', 'Nội dung 7 - Phần 4', 'Nội dung 7 - Phần 5',
+       'img7_1.jpg', 'img7_2.jpg', 'Tóm tắt bài viết 7', 'Tiêu đề bài viết 7', 'avatar7.jpg');
+
+
+
+
 SELECT
     p.id,
     p.name,
@@ -67,3 +103,6 @@ FROM Product p
     GROUP BY pc.product_id
 ) c ON p.id = c.product_id;
 
+
+
+DELETE FROM product_category WHERE product_id = :productId
