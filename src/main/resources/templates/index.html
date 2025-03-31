@@ -389,22 +389,22 @@
                 <div class="banner wow fadeInUp" data-wow-delay="0.4s">
                     <div class="content">
                         <div class="bg-shape-vector">
-                            <img src="@{/assets/media/bg/banner-bg-vector.png}" alt="">
+                            <img th:src="@{/assets/media/bg/banner-bg-vector.png}" alt="">
                         </div>
                         <div class="row justify-content-end">
                             <div class="col-lg-6 col-6 order-lg-2">
                                 <div class="text-end img-block">
-                                    <img src="@{/assets/media/bg/banner-img-xl.png}" alt="" class="d-lg-block d-none ms-auto">
-                                    <img src="@{/assets/media/bg/banner-img.png}" alt="" class="d-lg-none">
+                                    <img th:src="@{/assets/media/bg/banner-img-xl.png}" alt="" class="d-lg-block d-none ms-auto">
+                                    <img th:src="@{/assets/media/bg/banner-img.png}" alt="" class="d-lg-none">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-12 order-lg-1">
                                 <div class="text-block">
-                                    <h3 class="mb-16">ƯU ĐÃI ĐẶC BIỆT</h3>
-                                    <span class="title-1">HÈ</span>
-                                    <span class="title-2 mb-12">Giảm giá</span>
-                                    <h1 class="mb-32">LÊN ĐẾN 50% OFF</h1>
-                                    <a th:href="@{/shop-grid}" class="cus-btn mx-auto">
+                                    <h3 class="mb-16" th:text="${event.title1}">ƯU ĐÃI ĐẶC BIỆT</h3>
+                                    <span class="title-1" th:text="${event.title2}">HÈ</span>
+                                    <span class="title-2 mb-12" th:text="${event.title2}">Giảm giá</span>
+                                    <h1 class="mb-32" th:text="${event.title2}">LÊN ĐẾN 50% OFF</h1>
+                                    <a th:href="@{/event.urlRedirect}" class="cus-btn mx-auto">
                                         Mua Ngay
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                                             <path d="M20.734 14.4783C18.1512 20.8861 11.9637 17.0096 11.9637 17.0096C10.0652 20.8439 6.92931 23.3096 3.31056 23.3236C2.55587 23.3236 2.53243 22.1799 3.31056 22.1799C6.32931 22.1658 8.95899 20.1783 10.6793 17.0189C8.75274 17.7642 5.11993 18.3267 3.10431 13.1658C8.21368 11.0611 10.5621 13.6908 11.4621 15.2986C11.9262 14.1549 12.259 12.9127 12.4746 11.5627C12.4746 11.5627 5.92618 12.5892 5.46681 6.96425C11.0496 4.71893 12.6199 10.5596 12.6199 10.5596C12.6949 9.77675 12.7746 8.09393 12.7746 8.05643C12.7746 8.05643 7.79181 4.60175 10.9887 0.312683C16.8293 2.32831 13.8668 7.92518 13.8668 7.92518C13.8902 8.00018 13.8902 9.04081 13.8668 9.49081C13.8668 9.49081 15.9856 5.31893 20.2606 6.7955C20.0637 13.0767 13.609 11.783 13.609 11.783C13.4027 13.0674 13.084 14.2861 12.6715 15.4158C12.6715 15.4158 16.5621 11.1127 20.734 14.4783Z"/>
@@ -579,12 +579,12 @@
                         <div class="col-lg-4">
                             <div class="blog-card">
                                 <figure>
-                                    <img src="assets/media/blogs/b-1.png" alt="Ảnh minh họa">
+                                    <img th:src="@{/assets/media/blogs/b-1.png}" alt="Ảnh minh họa">
                                 </figure>
                                 <div class="text-block">
                                     <div class="top-row mb-24">
                                         <div class="author">
-                                            <img src="assets/media/users/ua-1.png" alt="Ảnh tác giả">
+                                            <img th:src="@{/assets/media/users/ua-1.png}" alt="Ảnh tác giả">
                                             <span class="bold-text color-primary">By: Williams</span>
                                         </div>
                                         <span class="date">14 Tháng 4, 2024</span>
