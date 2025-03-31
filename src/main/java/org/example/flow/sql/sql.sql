@@ -78,6 +78,10 @@ INSERT INTO blog (
        'img7_1.jpg', 'img7_2.jpg', 'Tóm tắt bài viết 7', 'Tiêu đề bài viết 7', 'avatar7.jpg');
 
 
+INSERT INTO event_special
+(id, created_at, updated_at, description, status, time, title, url_event)
+VALUES
+    ('1', NOW(), NOW(), 'Sự kiện giảm giá 50%', 1, '2025-04-10 10:00:00', 'Flash Sale Tháng 4', 'https://example.com/event');
 
 
 SELECT

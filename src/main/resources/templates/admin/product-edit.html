@@ -163,18 +163,18 @@
                                         </div>
                                         <!-- Ảnh hiện hữu -->
                                         <div id="imageCurrent" class="mt-3 d-flex flex-wrap gap-2">
-                                            <div class="position-relative" th:each="image: ${product.getImageUrls()}">
+                                            <div class="image-item position-relative" th:each="image: ${product.getImageUrls()}">
                                                 <img th:src="@{'/assets/media/products/' + ${image}}" alt="Ảnh sản phẩm"
                                                      style="width: 100px; height: 100px; object-fit: cover;" class="border rounded">
                                                 <button class="btn btn-danger btn-sm position-absolute delete-btn"
-                                                        style="top: 5px; right: 5px;" th:data-image="${image}" onclick="removeExistingImage(this)">
+                                                        style="top: 5px; right: 5px;" th:data-image="${image}">
                                                     ×
                                                 </button>
                                             </div>
                                         </div>
                                         <input type="hidden" id="imageUrls" name="imageUrls" th:value="${product.getImageUrls()}">
-
                                         <input type="hidden" id="deletedImages" name="deletedImages">
+
                                         <!-- Ảnh tải lên sản phẩm -->
                                         <div class="col-lg-12 col-sm-12 col-12">
                                             <label class="form-label">Ảnh sản phẩm:</label>
@@ -397,46 +397,52 @@
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        let imageUrls = []; // Mảng chứa danh sách ảnh
+        let imageUrls = [];
 
-// Lấy danh sách ảnh từ input ẩn ban đầu
+        // Lấy danh sách ảnh từ input ẩn
         let initialImages = document.getElementById("imageUrls").value.trim();
-
         if (initialImages) {
-            // Loại bỏ dấu [ ] nếu có
             initialImages = initialImages.replace(/^\[|\]$/g, "").trim();
-
-            // Chuyển thành mảng và loại bỏ khoảng trắng dư thừa
             imageUrls = initialImages.split(",").map(img => img.trim());
         }
-        console.log(imageUrls);
 
-        // Gán sự kiện xóa ảnh
-        document.querySelectorAll("#imageCurrent .delete-btn").forEach((button, index) => {
-            button.setAttribute("data-index", index); // Gán chỉ số cho ảnh
-            button.addEventListener("click", function () {
-                removeExistingImage(this);
+        // Lưu danh sách ảnh đã xóa
+        let deletedImages = [];
+
+        function attachDeleteEvent() {
+            document.querySelectorAll("#imageCurrent .delete-btn").forEach((button) => {
+                button.onclick = function (event) {
+                    event.preventDefault();
+                    removeExistingImage(this);
+                };
             });
-            console.log(imageUrls);
-        });
-        console.log(imageUrls);
+        }
 
         function removeExistingImage(button) {
-            let imageContainer = button.parentElement;
-            let index = parseInt(button.getAttribute("data-index"));
+            let imageContainer = button.closest(".image-item");
+            let imageUrl = button.getAttribute("data-image");
 
-            // Xóa ảnh khỏi danh sách theo chỉ số
-            if (index >= 0 && index < imageUrls.length) {
-                imageUrls.splice(index, 1); // Xóa 1 phần tử tại vị trí index
+            if (imageUrl) {
+                // Xóa khỏi danh sách ảnh
+                imageUrls = imageUrls.filter(img => img !== imageUrl);
+                deletedImages.push(imageUrl); // Lưu ảnh đã xóa
             }
 
             // Cập nhật input ẩn
             document.getElementById("imageUrls").value = imageUrls.join(",");
+            document.getElementById("deletedImages").value = deletedImages.join(",");
 
             // Xóa ảnh khỏi giao diện
-            imageContainer.remove();
+            if (imageContainer) {
+                imageContainer.remove();
+            }
         }
+
+        attachDeleteEvent(); // Khởi tạo sự kiện xóa ảnh
     });
+
+
+
 </script>
 
 </body>
