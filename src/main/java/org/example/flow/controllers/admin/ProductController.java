@@ -68,7 +68,7 @@ public class ProductController {
         List<Category> categories = (List<Category>) categoryService.getAll();
         model.addAttribute("categories", categories);
         model.addAttribute("product", new ProductDTO());
-        return "admin/product_create";
+        return "admin/product-create";
     }
 
 
@@ -91,7 +91,7 @@ public class ProductController {
         ProductDTO productDTO = productService.getProductById(id); // Trả về DTO thay vì entity
         model.addAttribute("product", productDTO);
         model.addAttribute("categories", categoryService.getAll());
-        return "admin/product_edit"; // Trả về trang chỉnh sửa
+        return "admin/product-edit"; // Trả về trang chỉnh sửa
     }
 
 
@@ -102,11 +102,11 @@ public class ProductController {
                                 RedirectAttributes redirectAttributes) {
         boolean update = productService.updateProduct(productDTO, imageFiles);
         if (update) {
-            redirectAttributes.addFlashAttribute("addSuccess", true);
+            redirectAttributes.addFlashAttribute("editSuccess", true);
         } else {
-            redirectAttributes.addFlashAttribute("addError", true);
+            redirectAttributes.addFlashAttribute("editError", true);
         }
-        return "redirect:/admin-manager/product/create"; // Chuyển hướng về danh sách sản phẩm
+        return "redirect:/admin-manager/product"; // Chuyển hướng về danh sách sản phẩm
     }
 
 

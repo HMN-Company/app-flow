@@ -101,21 +101,9 @@
                                 <div class="table-responsive">
                                     <form method="GET" action="" class="row align-items-center mb-3" id="searchForm">
                                         <div class="col-md-4">
-                                            <input type="text" name="name" class="form-control" placeholder="Tìm theo tên"
-                                                   th:value="${name}" />
+                                            <input type="text" name="title" class="form-control" placeholder="Tìm theo tên"
+                                                   th:value="${title}" />
                                         </div>
-
-                                        <div class="col-md-4">
-                                            <select name="category" class="form-select" id="categorySelect">
-                                                <option value="">Tất cả danh mục</option>
-                                                <option th:each="cat : ${categories}"
-                                                        th:value="${cat.name}"
-                                                        th:text="${cat.name}"
-                                                        th:selected="${cat.name == category}">
-                                                </option>
-                                            </select>
-                                        </div>
-
                                         <div class="col-md-2">
                                             <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
                                         </div>
@@ -125,44 +113,36 @@
                                         <thead>
                                         <tr>
                                             <th>Số thứ tự</th>
-<!--                                            <th>Mã Sản Phẩm</th>-->
-                                            <th>Tên Sản Phẩm</th>
-                                            <th>Giá Sản Phẩm</th>
-                                            <th>Chiết khấu</th>
-                                            <th>Mô tả</th>
-                                            <th style="width: 200px">Danh mục</th>
-                                            <th>Ảnh</th>
+                                            <th>Tiêu Đề</th>
+                                            <th>Tác giả</th>
+                                            <th>Ảnh Chính</th>
+                                            <th>Ngày tạo</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="product, stat : ${products}">
+                                        <tr th:each="blog, stat : ${blogs}">
                                             <td th:text="${stat.index + 1 + currentPage * 5}"></td>
     <!--                                            <td th:text="${product.id}"></td>-->
-                                            <td th:text="${product.name}"></td>
-                                            <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></td>
-                                            <td th:text="${product.discount + '%'}"></td>
-                                            <td th:text="${product.description}"></td>
-                                            <!-- Hiển thị danh mục có dấu , phân cách -->
-                                            <td th:text="${#strings.listJoin(product.categoryNames, ', ')}"></td>
-                                            <td>
-                                                <div th:each="image : ${product.imageUrls}">
-                                                    <img th:src="@{'/assets/media/products/' + ${image}}" alt="Ảnh sản phẩm" style="width: 50px; height: 50px; object-fit: cover;">
-                                                </div>
+                                            <td th:text="${blog.title}"></td>
+                                            <td th:text="${blog.author}"></td>
+                                            <td ><img th:src="@{'/assets/media/products/' + ${blog.background}}" alt="Ảnh sản phẩm" style="width: 50px; height: 50px; object-fit: cover;">
                                             </td>
+                                            <td th:text="${#temporals.format(blog.createdAt, 'dd-MM-yyyy HH:mm:ss')}"></td>
+
 
 <!--                                            <td th:text="${#temporals.format(product.createdAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
 <!--                                            <td th:text="${#temporals.format(product.updatedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
                                             <td>
                                                 <a class="btn btn-warning"
-                                                        th:href="@{/admin-manager/product/edit/{id}(id=${product.id})}">
+                                                        th:href="@{/admin-manager/product/edit/{id}(id=${blog.id})}">
                                                     <i class="fas fa-edit"></i> Chỉnh sửa
                                                 </a>
                                             </td>
                                             <td>
                                                 <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                                        th:attr="data-bs-target='#deleteModal-' + ${product.id}">
+                                                        th:attr="data-bs-target='#deleteModal-' + ${blog.id}">
                                                     <i class="fas fa-trash-alt"></i> Xóa
                                                 </button>
                                             </td>
@@ -179,7 +159,7 @@
                                         <nav aria-label="Phân trang">
                                             <ul class="pagination d-flex justify-content-between">
                                                 <li th:if="${currentPage > 0}" class="btn btn-primary">
-                                                    <a class="text-white"  th:href="@{/admin-manager/product(page=${currentPage - 1}, size=5, name=${name}, category=${category})}"> <i class="fas fa-arrow-left"></i> Trang trước</a>
+                                                    <a class="text-white"  th:href="@{/admin-manager/blog(page=${currentPage - 1}, size=5, title=${title})}"> <i class="fas fa-arrow-left"></i> Trang trước</a>
                                                 </li>
                                                 <li th:if="${currentPage <= 0}" class="btn btn-primary disabled">
                                                     <a><i class="fas fa-arrow-left"></i> Trang trước</a>
@@ -188,13 +168,13 @@
                                                     <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item mx-1"
                                                         th:classappend="${i == currentPage} ? 'active'">
                                                         <a class="page-link btn btn-outline-primary"
-                                                           th:href="@{/admin-manager/product(page=${i}, size=5, name=${name}, category=${category})}"
+                                                           th:href="@{/admin-manager/blog(page=${i}, size=5, title=${title})}"
                                                            th:text="${i + 1}">
                                                         </a>
                                                     </li>
                                                 </div>
                                                 <li th:if="${currentPage < totalPages - 1}" class="btn btn-primary">
-                                                    <a class="text-white text-center" th:href="@{/admin-manager/product(page=${currentPage + 1}, size=5, name=${name}, category=${category})}">Trang kế tiếp <i class="fas fa-arrow-right"></i></a>
+                                                    <a class="text-white text-center" th:href="@{/admin-manager/blog(page=${currentPage + 1}, size=5, title=${title})}">Trang kế tiếp <i class="fas fa-arrow-right"></i></a>
                                                 </li>
                                                 <li th:if="${currentPage >= totalPages - 1}" class="btn btn-primary disabled">
                                                     <a >Trang kế tiếp <i class="fas fa-arrow-right"></i></a>
@@ -226,8 +206,8 @@
     <!-- Main container end -->
 
     <!-- Modal Xóa -->
-    <th:block th:each="product : ${products}">
-        <div class="modal fade" th:id="'deleteModal-' + ${product.id}" tabindex="-1" aria-hidden="true">
+    <th:block th:each="blog : ${blogs}">
+        <div class="modal fade" th:id="'deleteModal-' + ${blog.id}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -235,13 +215,13 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Bạn có chắc chắn muốn xóa danh mục <strong th:text="${product.name}"></strong> không?</p>
+                        <p>Bạn có chắc chắn muốn xóa danh mục <strong th:text="${blog.title}"></strong> không?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                         <!-- Form gửi POST request -->
-                        <form th:action="@{/admin-manager/product/delete/{id}(id=${product.id})}" method="post">
-                            <input type="hidden" name="id" th:value="${product.id}" />
+                        <form th:action="@{/admin-manager/blog/delete/{id}(id=${blog.id})}" method="post">
+                            <input type="hidden" name="id" th:value="${blog.id}" />
                             <button type="submit" class="btn btn-danger">Xóa</button>
                         </form>
                     </div>
@@ -259,7 +239,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Danh mục đã được xóa thành công!</p>
+                    <p>Blog đã được xóa thành công!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
@@ -277,7 +257,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Có lỗi xảy ra khi xóa danh mục. Vui lòng thử lại!</p>
+                    <p>Có lỗi xảy ra khi xóa blog. Vui lòng thử lại!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -285,43 +265,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal Thêm Thành Công -->
-    <div class="modal fade" id="editSuccessModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title">Thành công</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Sản phẩm đã được cập nhật thành công!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal thêm Thất Bại -->
-    <div class="modal fade" id="editErrorModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">Thất bại</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Có lỗi xảy ra khi cập nhật sản phẩm. Vui lòng thử lại!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 
 
