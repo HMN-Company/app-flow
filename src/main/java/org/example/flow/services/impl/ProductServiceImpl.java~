@@ -262,7 +262,7 @@ public class ProductServiceImpl implements ProductService {
                 .toList();
 
         // Lấy danh sách ảnh của sản phẩm
-        List<String> imageUrls = mediaRepository.findAllByProduct_Id(id)
+        List<String> imageUrls = mediaRepository.findMediaByProductId(id)
                 .stream()
                 .map(Media::getUrl) // Lấy đường dẫn ảnh
                 .toList();
