@@ -48,6 +48,7 @@ public class BaseController {
         Page<Product> products = productService.findAllAndSearch(searchName, pageable);
         model.addAttribute("products", products);
         return "shop-list";
+
     }
 
 

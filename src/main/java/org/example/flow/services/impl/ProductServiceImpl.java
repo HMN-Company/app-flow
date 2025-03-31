@@ -1,14 +1,17 @@
 package org.example.flow.services.impl;
 
 import org.example.flow.dtos.ProductDTO;
+import org.example.flow.dtos.ProductResponse;
 import org.example.flow.models.Product;
 import org.example.flow.repositories.ProductRepository;
+import org.example.flow.services.MediaService;
 import org.example.flow.services.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +21,11 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+    private final MediaService mediaService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, MediaService mediaService) {
         this.productRepository = productRepository;
+        this.mediaService = mediaService;
     }
 
     @Override
@@ -88,4 +93,22 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
+    @Override
+    public Collection<ProductResponse> getProducts() {
+        Collection<Product> products = productRepository.findAll();
+        Collection<ProductResponse> productResponses = new ArrayList<>();
+        for (Product product : products) {
+            Collection<String> media = mediaService.getMediasByProductId(product.getId());
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setId(product.getId());
+            productResponse.setName(product.getName());
+            productResponse.setDescription(product.getDescription());
+            productResponse.setImage(media.stream().findFirst().orElse(null));
+            productResponse.setImages(media);
+            productResponse.setOldPrice(product.getPrice());
+            productResponse.setNewPrice(product.getPrice() - product.getPrice() * (product.getDiscount() / 100));
+            productResponses.add(productResponse);
+        }
+        return productResponses;
+    }
 }

@@ -1,4 +1,4 @@
-package org.example.flow.controller.admin;
+package org.example.flow.controllers.admin;
 
 
 import org.example.flow.services.impl.UserDetailService;
