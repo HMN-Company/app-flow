@@ -1,15 +1,23 @@
 package org.example.flow.services.impl;
 
 import org.example.flow.dtos.ProductDTO;
+<<<<<<< HEAD
+import org.example.flow.dtos.ProductResponse;
+=======
 import org.example.flow.models.Category;
 import org.example.flow.models.Media;
+>>>>>>> ee2fb8a5bbb6b594b61a74f14b672ca28064479a
 import org.example.flow.models.Product;
 import org.example.flow.models.ProductCategory;
 import org.example.flow.repositories.CategoryRepository;
 import org.example.flow.repositories.MediaRepository;
 import org.example.flow.repositories.ProductCategoryRepository;
 import org.example.flow.repositories.ProductRepository;
+<<<<<<< HEAD
+import org.example.flow.services.MediaService;
+=======
 import org.example.flow.services.FileStorageService;
+>>>>>>> ee2fb8a5bbb6b594b61a74f14b672ca28064479a
 import org.example.flow.services.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +32,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
+import java.util.ArrayList;
+=======
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+>>>>>>> ee2fb8a5bbb6b594b61a74f14b672ca28064479a
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +48,13 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
+<<<<<<< HEAD
+    private final MediaService mediaService;
+
+    public ProductServiceImpl(ProductRepository productRepository, MediaService mediaService) {
+        this.productRepository = productRepository;
+        this.mediaService = mediaService;
+=======
     private final ProductCategoryRepository productCategoryRepository;
     private final MediaRepository mediaRepository;
     private final FileStorageService fileStorageService; // Dịch vụ lưu ảnh
@@ -49,6 +68,7 @@ public class ProductServiceImpl implements ProductService {
         this.mediaRepository = mediaRepository;
         this.fileStorageService = fileStorageService;
         this.categoryRepository = categoryRepository;
+>>>>>>> ee2fb8a5bbb6b594b61a74f14b672ca28064479a
     }
 
     @Override
@@ -121,6 +141,26 @@ public class ProductServiceImpl implements ProductService {
         );
     }
 
+<<<<<<< HEAD
+    @Override
+    public Collection<ProductResponse> getProducts() {
+        Collection<Product> products = productRepository.findAll();
+        Collection<ProductResponse> productResponses = new ArrayList<>();
+        for (Product product : products) {
+            Collection<String> media = mediaService.getMediasByProductId(product.getId());
+            ProductResponse productResponse = new ProductResponse();
+            productResponse.setId(product.getId());
+            productResponse.setName(product.getName());
+            productResponse.setDescription(product.getDescription());
+            productResponse.setImage(media.stream().findFirst().orElse(null));
+            productResponse.setImages(media);
+            productResponse.setOldPrice(product.getPrice());
+            productResponse.setNewPrice(product.getPrice() - product.getPrice() * (product.getDiscount() / 100));
+            productResponses.add(productResponse);
+        }
+        return productResponses;
+    }
+=======
 
     @Override
     public Page<ProductDTO> findAllProductDTO(Pageable pageable) {
@@ -302,4 +342,5 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
+>>>>>>> ee2fb8a5bbb6b594b61a74f14b672ca28064479a
 }

@@ -133,30 +133,11 @@
                                                 </svg>
                                             </button> 
                                             <div class="preview-slider-nav mt-3">
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-1.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-2.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-3.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-4.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-1.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-2.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-3.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt=""  th:src="@{/assets/media/products/product-image-slider-4.png}">
-                                                </div>
+                                                <th:block th:each="image : ${product.images}" >
+                                                    <div class="detail-img-block">
+                                                        <img alt="" th:src="@{/assets/media/products/ + image}">
+                                                    </div>
+                                                </th:block>
                                             </div>
                                             <button class="slider-btn next-btn" data-slide="preview-slider-nav">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 16" fill="none">
@@ -166,30 +147,11 @@
                                         </div>
                                         <div class="preview">
                                             <div class="preview-slider">
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-1.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-2.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-3.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-4.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-1.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-2.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-3.png}">
-                                                </div>
-                                                <div class="detail-img-block">
-                                                    <img alt="" th:src="@{/assets/media/products/pd-4.png}">
-                                                </div>
+                                                <th:block th:each="image : ${product.images}" >
+                                                    <div class="detail-img-block">
+                                                        <img alt="" th:src="@{/assets/media/products/ + image}">
+                                                    </div>
+                                            </th:block>
                                             </div>
                                         </div>
                                     </div>
@@ -198,26 +160,45 @@
                                 <div class="col-md-6">
                                     <div class="product-detail-content">
                                         <div class="d-flex align-items-center column-gap-2 row-gap-3 mb-16">
-                                            <h4>Jasmine Junction</h4>
-                                            <p class="green-tag">Còn hàng</p>
+                                            <h4 th:text="${product.name}">Jasmine Junction</h4>
+                                            <th:block th:if="${product.isStock}">
+                                                <p class="green-tag">Còn hàng</p>
+                                            </th:block>
+                                            <th:block th:unless="${product.isStock}">
+                                                <p class="red-tag">Hết hàng</p>
+                                            </th:block>
                                         </div>
                                         <ul class="unstyled mb-24 pro-rel">
                                             <li class="d-flex align-items-center">
-                                                <span class="rating-stars me-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                                                <span class="text-decoration-underline">2 Đánh giá</span>
+                                                <span class="rating-stars me-1">
+                                                    <th:block th:each="star : ${#numbers.sequence(1, product.rate)}">
+                                                        <i class="fa-solid fa-star"></i>
+                                                    </th:block>
+                                                    <th:block th:each="star : ${#numbers.sequence(1, 5 - product.rate)}">
+                                                        <i class="fa-light fa-star"></i>
+                                                    </th:block>
+                                                </span>
+                                                <span class="text-decoration-underline" th:text="${product.review.size}">2<span> Đánh giá</span></span>
                                             </li>
                                             <li>
-                                                <span class="bold-text accent-dark me-1">Mã sản phẩm:</span><span>3,24,672</span>
+                                                <span class="bold-text accent-dark me-1">Đã bán:</span><span th:text="${product.quantitySell}">3,24,672</span>
                                             </li>
                                         </ul>
                                         <div class="d-flex align-items-center column-gap-2 row-gap-3 mb-24">
                                             <div class="price">
-                                                <del class="h6 dark-gray">1.100.000 VND</del>
-                                                <h3>880.000 VND</h3>
+                                                <th:block th:if="${product.discount > 0}">
+                                                    <del class="h6 dark-gray" th:text="${product.oldPrice} + ' VND'">1.100.000 VND</del>
+                                                    <h3 th:text="${product.newPrice} + ' VND'">880.000 VND</h3>
+                                                </th:block>
+                                                <th:block th:unless="${product.discount > 0}">
+                                                    <h3 th:text="${product.oldPrice} + ' VND'">880.000 VND</h3>
+                                                </th:block>
                                             </div>
-                                            <p class="red-tag">Giảm giá 10%</p>
+                                            <th:block th:if="${product.discount > 0}">
+                                                <p class="red-tag">Giảm giá <span th:text="${product.discount}"></span>%</p>
+                                            </th:block>
                                         </div>
-                                        <p class="mb-24">Mô tả sản phẩm. Nội dung thực tế. Nội dung thực tế.</p>
+                                        <p class="mb-24" th:text="${product.description}">Mô tả sản phẩm. Nội dung thực tế. Nội dung thực tế.</p>
                                         <hr class="dash-line mb-16">
                                         <div class="action-block mb-16">
                                             <div class="quantity-wrap">
@@ -237,11 +218,9 @@
                                             <a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a>
                                         </div>
                                         <hr class="dash-line mb-24">
-                                        <div class="mb-16">
-                                            <span class="bold-text accent-dark me-1">Mã sản phẩm:</span><span>Hoạt động</span>
-                                        </div>
                                         <div class="tags mb-24">
-                                            <span class="bold-text accent-dark me-1">Thẻ:</span><span class="me-1">Bó hoa sinh nhật, </span><span class="me-1 active">Hoa,</span><span>Hồng</span>
+                                            <span class="bold-text accent-dark me-1">Thẻ: </span>
+                                            <span class="me-1" th:text="${product.tag}">Bó hoa sinh nhật, </span>
                                         </div>
                                         <hr class="dash-line mb-16">
                                         <div class="d-flex justify-content-between align-items-center gap-2 mb-16">
@@ -268,44 +247,33 @@
                             <hr class="dash-line mb-32">
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-descriptions" role="tabpanel" aria-labelledby="nav-descriptions-tab">
-                                    <p>
+                                    <p th:text="${product.description}">
                                         Sản phẩm này được thiết kế với chất lượng cao, mang lại sự thoải mái và tiện lợi cho người dùng. Với thiết kế hiện đại và màu sắc tươi sáng, sản phẩm này sẽ là một lựa chọn tuyệt vời cho bất kỳ ai. <span class="br"></span>Chúng tôi cam kết mang lại cho khách hàng những sản phẩm tốt nhất, với giá cả cạnh tranh và dịch vụ sau bán hàng chu đáo.
                                     </p>
                                 </div>
                                 <div class="tab-pane fade" id="nav-reviews" role="tabpanel" aria-labelledby="nav-reviews-tab">
                                     <div class="reviews mb-48">
-                                        <h5 class="mb-48">(2) ĐÁNH GIÁ</h5>
-                                        <div class="review-block mb-24">
-                                            <img th:src="@{/assets/media/users/user_1.png}" alt="Ảnh người dùng">
-                                            <div class="content">
-                                                <h6 class="mb-8">Ethan Clarke</h6>
-                                                <div class="rating mb-16">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-light fa-star"></i>
+                                        <h5 class="mb-48">(<span th:text="${product.review.size}"></span>) ĐÁNH GIÁ</h5>
+                                        <th:block th:each="review, iter : ${product.review}">
+                                            <div class="review-block mb-24">
+                                                <img th:src="@{${review.img}}" alt="Ảnh người dùng">
+                                                <div class="content">   
+                                                    <h6 class="mb-8" th:text="${review.name}"></h6>
+                                                    <div class="rating mb-16">
+                                                        <th:block th:each="i : ${#numbers.sequence(1, review.rate)}">
+                                                            <i class="fa-solid fa-star"></i>
+                                                        </th:block>
+                                                        <th:block th:each="i : ${#numbers.sequence(1, 5 - review.rate)}">
+                                                            <i class="fa-light fa-star"></i>
+                                                        </th:block>
+                                                    </div>
+                                                    <p th:text="${review.content}"></p>
                                                 </div>
-                                                <p>Sản phẩm này rất tuyệt vời. Tôi đã sử dụng nó trong một tuần và thấy rất hài lòng. Chất lượng sản phẩm tốt, giá cả hợp lý.</p>
                                             </div>
-                                        </div>
-                                        <hr class="dash-line mb-24">
-                                        <div class="review-block mb-48">
-                                            <img th:src="@{/assets/media/users/user_2.png}" alt="Ảnh người dùng">
-                                            <div class="content">
-                                                <h6 class="mb-8">Ethan Clarke</h6>
-                                                <div class="rating mb-16">
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-solid fa-star"></i>
-                                                    <i class="fa-light fa-star"></i>
-                                                </div>
-                                                <p>Sản phẩm này rất tuyệt vời. Tôi đã sử dụng nó trong một tuần và thấy rất hài lòng. Chất lượng sản phẩm tốt, giá cả hợp lý.</p>
-                                            </div>
-                                        </div>
+                                            <th:block th:unless="${iter.last}"><hr class="dash-line mb-24"></th:block>
+                                        </th:block>
                                     </div>
-                                    <form action="@{/product-detail}" method="post">
+                                    <form action="@{/product-detail}" method="post" enctype="multipart/form-data">
                                         <h6 class="mb-16">Viết Đánh Giá</h6>
                                         <p class="mb-32">Địa chỉ email của bạn sẽ không được công bố. Các trường bắt buộc được đánh dấu</p>
                                         <div class="row">
@@ -323,6 +291,25 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group mb-24">
                                                     <input type="email" name="mail" autocomplete="off" placeholder="Email của bạn">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group mb-24">
+                                                    <label class="mb-16 accent-dark bold-text">Số Sao</label>
+                                                    <div class="rating">
+                                                        <th:block th:each="i : ${#numbers.sequence(1, 5)}">
+                                                            <input type="radio" name="rate" value="${i}" id="rate-${i}" style="display: none;">
+                                                            <label for="rate-${i}" style="cursor: pointer; display: inline-block; font-size: 24px; color: #f2c464;">
+                                                                <i class="fa-light fa-star"></i>
+                                                            </label>
+                                                        </th:block>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group mb-24">
+                                                    <label class="mb-16 accent-dark bold-text">Chọn Ảnh</label>
+                                                    <input type="file" name="img" accept="image/*">
                                                 </div>
                                             </div>
                                         </div>
@@ -370,163 +357,40 @@
                         </svg>
                     </button>
                     <div class="row featured-product-slider">
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img src="assets/media/products/p-1.png" alt="Hình ảnh sản phẩm">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product-detail}" class="h4 mb-16">Lily Lane</a>
-                                    <p class="mb-24">Sản phẩm Lily Lane mang lại vẻ đẹp và hương thơm cho không gian của bạn.</p>
-                                    <div class="price mb-32">
-                                        <del class="h6 dark-gray">1.250.000₫</del>
-                                        <h3>1.000.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
+                        <th:block th:each="product : ${products}">
+                            <div class="col-12">
+                                <div class="product-card">
+                                    <figure>
+                                        <img th:src="@{${product.img}}" alt="Hình ảnh sản phẩm">
+                                        <ul class="unstyled action-list">
+                                            <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
+                                            <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
+                                        </ul>
+                                    </figure>
+                                    <div class="text-block">
+                                        <a th:href="@{/product-detail}" th:text="${product.name}" class="h4 mb-16"></a>
+                                        <p th:text="${product.description}" class="mb-24"></p>
+                                        <div class="price mb-32">
+                                            <th:block th:if="${product.discount > 0}">
+                                                <del class="h6 dark-gray" th:text="${product.oldPrice} + '₫'"></del>
+                                                <h3 th:text="${product.newPrice} + '₫'"></h3>
+                                            </th:block>
+                                            <th:block th:unless="${product.discount > 0}">
+                                                <h3 th:text="${product.oldPrice} + '₫'"></h3>
+                                            </th:block>
                                         </div>
-                                        <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt=""></a>
+                                        <div class="action-block">
+                                            <div class="quantity-wrap">
+                                                <div class="decrement"><i class="fa-solid fa-dash"></i></div>
+                                                <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
+                                                <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
+                                            </div>
+                                            <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt=""></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-2.png}" alt="">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product-detail}" class="h4 mb-16">Daisy Dreams</a>
-                                    <p class="mb-24">Sản phẩm Daisy Dreams mang lại vẻ đẹp và hương thơm cho không gian của bạn.</p>
-                                    <div class="price mb-32">
-                                        <h3>750.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt=""></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-3.png}" alt="">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product-detail}" class="h4 mb-16">Các Loại Hoa Hồng</a>
-                                    <p class="mb-24">Hoa hồng là một trong những loài hoa được yêu thích nhất trên thế giới. Chúng mang lại vẻ đẹp và hương thơm cho không gian của bạn.</p>
-                                    <div class="price mb-32">
-                                        <h3>625.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Thêm vào giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-4.png}" alt="">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product-detail}" class="h4 mb-16">Hoa Hồng Rose</a>
-                                    <p class="mb-24">Hoa hồng là một trong những loài hoa được yêu thích nhất trên thế giới. Chúng mang lại vẻ đẹp và hương thơm cho không gian của bạn.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.225.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Thêm vào giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-5.png}" alt="">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product-detail}" class="h4 mb-16">Hoa Lavender Daisy</a>
-                                    <p class="mb-24">Hoa Lavender Daisy là một trong những loài hoa được yêu thích nhất trên thế giới. Chúng mang lại vẻ đẹp và hương thơm cho không gian của bạn.</p>
-                                    <div class="price mb-32">
-                                        <h3>1.375.000₫</h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Thêm vào giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="product-card">
-                                <figure>
-                                    <img th:src="@{/assets/media/products/p-6.png}" alt="Hoa Magnolia Rose">
-                                    <ul class="unstyled action-list">
-                                        <li><a href="javascript:;" class="icon wishlist-icon"><i class="fa-light fa-heart"></i></a></li>
-                                        <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#productQuickView" class="icon"><i class="fa-light fa-eye"></i></a></li>
-                                    </ul>
-                                </figure>
-                                <div class="text-block">
-                                    <a th:href="@{/product-detail}" class="h4 mb-16">Hoa Magnolia Rose</a>
-                                    <p class="mb-24">Hoa Magnolia Rose là một trong những loài hoa được yêu thích nhất trên thế giới. Chúng mang lại vẻ đẹp và hương thơm cho không gian của bạn.</p>
-                                    <div class="price mb-32">
-                                        <h3 th:text="${1.75 * 25000}₫"></h3>
-                                    </div>
-                                    <div class="action-block">
-                                        <div class="quantity-wrap">
-                                            <div class="decrement"><i class="fa-solid fa-dash"></i></div>
-                                            <input type="text" name="quantity" value="1" maxlength="1" size="1" class="number" placeholder="Số lượng">
-                                            <div class="increment"><i class="fa-solid fa-plus-large"></i></div>
-                                        </div>
-                                        <a th:href="@{/cart}" class="cart-btn cart-button"><img th:src="@{/assets/media/icons/cart.svg}" alt="Thêm vào giỏ hàng"></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
                 <div class="slider-arrows d-lg-none mt-48">
@@ -726,30 +590,11 @@
                                                 </button> 
                                                 <div class="wrap-modal-slider">
                                                     <div class="preview-slider-nav mt-3">
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-1.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-2.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-3.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-4.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-1.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-2.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-3.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt=""  th:src="@{/assets/media/products/product-image-slider-4.png}">
-                                                        </div>
+                                                        <th:block th:each="img : ${product.imgs}">
+                                                            <div class="detail-img-block">
+                                                                <img alt="" th:src="${img}">
+                                                            </div>
+                                                        </th:block>
                                                     </div>
                                                 </div>
                                                  <button class="slider-btn next-btn" data-slide="preview-slider-nav">
@@ -761,30 +606,11 @@
                                             <div class="preview">
                                                 <div class="wrap-modal-slider">
                                                     <div class="preview-slider">
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-1.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-2.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-3.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-4.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-1.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-2.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-3.png}">
-                                                        </div>
-                                                        <div class="detail-img-block">
-                                                            <img alt="" th:src="@{/assets/media/products/pd-4.png}">
-                                                        </div>
+                                                        <th:block th:each="img : ${product.imgs}">
+                                                            <div class="detail-img-block">
+                                                                <img alt="" th:src="${img}">
+                                                            </div>
+                                                        </th:block>
                                                     </div>
                                                 </div>
                                             </div>
@@ -794,26 +620,38 @@
                                     <div class="col-md-6">
                                         <div class="product-detail-content">
                                             <div class="d-flex align-items-center column-gap-2 row-gap-3 mb-16">
-                                                <h4>Jasmine Junction</h4>
-                                                <p class="green-tag">Còn hàng</p>
+                                                <h4 th:text="${product.name}">Jasmine Junction</h4>
+                                                <th:block th:if="${product.isStock}">
+                                                    <p class="green-tag">Còn hàng</p>
+                                                </th:block>
+                                                <th:block th:unless="${product.isStock}">
+                                                    <p class="red-tag">Hết hàng</p>
+                                                </th:block>
                                             </div>
                                             <ul class="unstyled mb-24 pro-rel">
                                                 <li class="d-flex align-items-center">
                                                     <span class="rating-stars me-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></span>
-                                                    <span class="text-decoration-underline">2 Đánh giá</span>
+                                                    <span class="text-decoration-underline"><span th:text="${product.review.size}">2</span> Đánh giá</span>
                                                 </li>
                                                 <li>
-                                                    <span class="bold-text accent-dark me-1">Mã sản phẩm:</span><span>3,24,672</span>
+                                                    <span class="bold-text accent-dark me-1">Đã bán:</span><span th:text="${product.quantitySell}">3,24,672</span>
                                                 </li>
                                             </ul>
                                             <div class="d-flex align-items-center column-gap-2 row-gap-3 mb-24">
                                                 <div class="price">
-                                                    <del class="h6 dark-gray">50.00 USD</del>
-                                                    <h3>40.00 USD</h3>
+                                                    <th:block th:if="${product.discount > 0}">
+                                                        <del class="h6 dark-gray" th:text="${product.oldPrice} + ' VND'">1.100.000 VND</del>
+                                                        <h3 th:text="${product.newPrice} + ' VND'">880.000 VND</h3>
+                                                    </th:block>
+                                                    <th:block th:unless="${product.discount > 0}">
+                                                        <h3 th:text="${product.oldPrice} + ' VND'">880.000 VND</h3>
+                                                    </th:block>
                                                 </div>
-                                                <p class="red-tag">Giảm giá 10%</p>
+                                                <th:block th:if="${product.discount > 0}">
+                                                    <p class="red-tag">Giảm giá <span th:text="${product.discount}"></span>%</p>
+                                                </th:block>
                                             </div>
-                                            <p class="mb-24">Mô tả sản phẩm: Sản phẩm này được thiết kế để mang lại sự tiện lợi và thoải mái cho người dùng. Với chất liệu cao cấp và công nghệ hiện đại, sản phẩm này chắc chắn sẽ đáp ứng nhu cầu của bạn.</p>
+                                            <p class="mb-24" th:text="${product.description}">Mô tả sản phẩm: Sản phẩm này được thiết kế để mang lại sự tiện lợi và thoải mái cho người dùng. Với chất liệu cao cấp và công nghệ hiện đại, sản phẩm này chắc chắn sẽ đáp ứng nhu cầu của bạn.</p>
                                             <hr class="dash-line mb-16">
                                             <div class="action-block mb-16">
                                                 <div class="quantity-wrap">

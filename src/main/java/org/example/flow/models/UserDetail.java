@@ -19,7 +19,7 @@ public class UserDetail implements UserDetails {
         authorities = new ArrayList<>();
         if (roles != null) {
             for (Role role : roles) {
-                GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
+                GrantedAuthority authority = new SimpleGrantedAuthority(role.getRole().name());
                 authorities.add(authority);
             }
         }
