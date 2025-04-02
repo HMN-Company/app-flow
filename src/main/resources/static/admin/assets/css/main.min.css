@@ -1800,7 +1800,6 @@ ul.updates li a i {
 .badge.shade-light-yellow {
     outline: 1px solid #ffb31b;
     background-color: #fff7e8;
-    outline-offset: 3px;
     color: #fda901
 }
 

@@ -132,6 +132,8 @@
                                             <th>Mô tả</th>
                                             <th style="width: 200px">Danh mục</th>
                                             <th>Ảnh</th>
+                                            <th>Mức độ ưu tiên</th>
+                                            <th>Tình trạng hàng</th>
                                             <th>Sửa</th>
                                             <th>Xóa</th>
                                         </tr>
@@ -151,8 +153,10 @@
                                                     <img th:src="@{'/assets/media/products/' + ${image}}" alt="Ảnh sản phẩm" style="width: 50px; height: 50px; object-fit: cover;">
                                                 </div>
                                             </td>
+                                            <td th:text="${product.slot}"></td>
+                                            <td th:text="${product.isStock()?'Còn hàng' : 'Hết hàng'}"></td>
 
-<!--                                            <td th:text="${#temporals.format(product.createdAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
+                                            <!--                                            <td th:text="${#temporals.format(product.createdAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
 <!--                                            <td th:text="${#temporals.format(product.updatedAt, 'dd-MM-yyyy HH:mm:ss')}"></td>-->
                                             <td>
                                                 <a class="btn btn-warning"

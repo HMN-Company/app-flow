@@ -122,10 +122,14 @@ public class ProductServiceImpl implements ProductService {
                 (String) obj[2], // description
                 (Double) obj[3], // price
                 (Double) obj[4], // discount
-                obj[5] != null ? List.of(((String) obj[5]).split(", ")) : List.of(), // imageUrls
-                obj[6] != null ? List.of(((String) obj[6]).split(", ")) : List.of(), // categoryNames
-                obj[7] != null ? LocalDateTime.parse(obj[7].toString(), formatter) : null, // createdAt
-                obj[8] != null ? LocalDateTime.parse(obj[8].toString(), formatter) : null // updatedAt
+                (Integer) obj[5], // slot
+                (Boolean) obj[6], // is_stock
+                (String) obj[7], //  tag
+                (Integer) obj[8], //
+                obj[9] != null ? List.of(((String) obj[9]).split(", ")) : List.of(), // imageUrls
+                obj[10] != null ? List.of(((String) obj[10]).split(", ")) : List.of(), // categoryNames
+                obj[11] instanceof Timestamp ? ((Timestamp) obj[11]).toLocalDateTime() : null, // createdAt
+                obj[12] instanceof Timestamp ? ((Timestamp) obj[12]).toLocalDateTime() : null  // updatedAt
         );
     }
 
@@ -164,10 +168,14 @@ public class ProductServiceImpl implements ProductService {
                 (String) obj[2], // description
                 (Double) obj[3], // price
                 (Double) obj[4], // discount
-                obj[5] != null ? List.of(((String) obj[5]).split(", ")) : List.of(), // imageUrls
-                obj[6] != null ? List.of(((String) obj[6]).split(", ")) : List.of(), // categoryNames
-                obj[7] instanceof Timestamp ? ((Timestamp) obj[7]).toLocalDateTime() : null, // createdAt
-                obj[8] instanceof Timestamp ? ((Timestamp) obj[8]).toLocalDateTime() : null  // updatedAt
+                (Integer) obj[5], // slot
+                (Boolean) obj[6], // is_stock
+                (String) obj[7], //  tag
+                (Integer) obj[8], //
+                obj[9] != null ? List.of(((String) obj[9]).split(", ")) : List.of(), // imageUrls
+                obj[10] != null ? List.of(((String) obj[10]).split(", ")) : List.of(), // categoryNames
+                obj[11] instanceof Timestamp ? ((Timestamp) obj[11]).toLocalDateTime() : null, // createdAt
+                obj[12] instanceof Timestamp ? ((Timestamp) obj[12]).toLocalDateTime() : null  // updatedAt
         );
     }
 
@@ -199,6 +207,10 @@ public class ProductServiceImpl implements ProductService {
             product.setDescription(productDTO.getDescription());
             product.setPrice(productDTO.getPrice());
             product.setDiscount(productDTO.getDiscount());
+            product.setSlot(productDTO.getSlot());
+            product.setTag(product.getTag());
+            product.setStock(productDTO.isStock());
+            product.setQuantitySell(productDTO.getQuantitySell());
             product.setCreatedAt(LocalDateTime.now());
             product.setUpdatedAt(LocalDateTime.now());
 
@@ -285,7 +297,10 @@ public class ProductServiceImpl implements ProductService {
             product.setPrice(productDTO.getPrice());
             product.setDiscount(productDTO.getDiscount());
             product.setUpdatedAt(LocalDateTime.now());
-
+            product.setSlot(productDTO.getSlot());
+            product.setTag(product.getTag());
+            product.setStock(productDTO.isStock());
+            product.setQuantitySell(productDTO.getQuantitySell());
             // Lưu sản phẩm
             Product savedProduct = productRepository.save(product);
 

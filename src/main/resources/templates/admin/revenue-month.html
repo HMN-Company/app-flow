@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Bootstrap Gallery - Bootstrap Admin Templates</title>
+
+    <!-- Meta -->
+    <meta name="description" content="Marketplace for Bootstrap Admin Dashboards"/>
+    <meta name="author" content="Bootstrap Gallery"/>
+    <link rel="canonical" href="https://www.bootstrap.gallery/">
+    <meta property="og:url" content="https://www.bootstrap.gallery">
+    <meta property="og:title" content="Admin Templates - Dashboard Templates | Bootstrap Gallery">
+    <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+    <meta property="og:type" content="Website">
+    <meta property="og:site_name" content="Bootstrap Gallery">
+    <link rel="shortcut icon" th:href="@{/admin/assets/images/favicon.svg}"/>
+
+    <!-- ************* Common Css Files ************* -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" th:href="@{/admin/assets/css/bootstrap.min.css}"/>
+
+    <!-- Bootstrap font icons css -->
+    <link rel="stylesheet" th:href="@{/admin/assets/fonts/bootstrap/bootstrap-icons.css}"/>
+
+    <!-- Main css -->
+    <link rel="stylesheet" th:href="@{/admin/assets/css/main.min.css}"/>
+
+    <!-- ************* Vendor Css Files ************* -->
+    <!-- Scrollbar CSS -->
+    <link rel="stylesheet" th:href="@{/admin/assets/vendor/overlay-scroll/OverlayScrollbars.min.css}"/>
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Page wrapper start -->
+<div class="page-wrapper">
+
+    <!-- Bắt đầu phần đầu trang -->
+    <div th:replace="admin/layout::header"></div>
+    <!-- Kết thúc phần đầu trang -->
+
+    <!-- Bắt đầu phần nội dung -->
+    <div class="main-container">
+
+        <!-- Bắt đầu phần thân chuyển hướng -->
+        <div th:replace="admin/layout::nav"></div>
+        <!-- Kết thúc phần thân chuyển hướng -->
+
+        <!-- Content wrapper scroll start -->
+        <div class="content-wrapper-scroll">
+
+            <!-- Main header starts -->
+            <div class="main-header d-flex align-items-center justify-content-between position-relative">
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="page-icon">
+                        <i class="bi bi-window-split"></i>
+                    </div>
+                    <div class="page-title d-none d-md-block">
+                        <h5>Danh Sách Sản Phẩm</h5>
+                    </div>
+                </div>
+                <!-- Live updates start -->
+                <ul class="updates d-flex align-items-end flex-column overflow-hidden" id="updates">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="bi bi-envelope-paper text-red font-1x me-2"></i>
+                            <span>12 emails from David Michaiah.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="bi bi-bar-chart text-blue font-1x me-2"></i>
+                            <span>15 new features updated successfully.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="bi bi-folder-check text-yellow font-1x me-2"></i>
+                            <span>The media folder is created successfully.</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- Live updates end -->
+
+            </div>
+            <!-- Main header ends -->
+            <!-- Content wrapper start -->
+            <div class="content-wrapper">
+                <!-- Row start -->
+                <div class="row gx-3">
+                    <div class="col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <div th:each="entry : ${groupedByYear}">
+                                        <h3 th:text="'Doanh Thu Năm ' + ${entry.key}"></h3>
+                                        <table class="table table-bordered m-0">
+                                            <thead>
+                                            <tr>
+                                                <th>Tháng</th>
+                                                <th>Doanh Thu</th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="monthData : ${entry.value}">
+                                                <td th:text="${monthData['month']}"></td>
+                                                <td th:text="${monthData['totalRevenue']}"> </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Content wrapper end -->
+
+        </div>
+        <!-- Content wrapper scroll end -->
+
+        <!-- App Footer start -->
+        <div class="app-footer">
+            <span>© Bootstrap Gallery 2024</span>
+        </div>
+        <!-- App footer end -->
+
+    </div>
+
+    <!-- Main container end -->
+
+
+</div>
+<!-- Page wrapper end -->
+
+<!-- *************
+        ************ Required JavaScript Files *************
+    ************* -->
+<!-- Required jQuery first, then Bootstrap Bundle JS -->
+<script th:src="@{/admin/assets/js/jquery.min.js}"></script>
+<script th:src="@{/admin/assets/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/admin/assets/js/modernizr.js}"></script>
+<script th:src="@{/admin/assets/js/moment.js}"></script>
+
+<!-- ************ Vendor Js Files ************ -->
+
+<!-- Overlay Scroll JS -->
+<script th:src="@{/admin/assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/overlay-scroll/custom-scrollbar.js}"></script>
+
+<!-- News ticker -->
+<script th:src="@{/admin/assets/vendor/newsticker/newsTicker.min.js}"></script>
+<script th:src="@{/admin/assets/vendor/newsticker/custom-newsTicker.js}"></script>
+
+<!-- Main Js Required -->
+<script th:src="@{/admin/assets/js/main.js}"></script>
+
+<!-- Bootstrap JS từ CDN -->
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById("statusSelect").addEventListener("change", function () {
+        document.getElementById("searchForm").submit();
+    });
+</script>
+
+
+
+</body>
+
+</html>

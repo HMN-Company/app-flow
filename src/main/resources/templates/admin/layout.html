@@ -82,7 +82,7 @@
             <div class="sidebarMenuScroll">
                 <ul>
                     <li class="active-page-link">
-                        <a href="index.html">
+                        <a  th:href="@{/dashboard}">
                             <i class="bi bi-house"></i>
                             <span class="menu-text">Dashboard</span>
                         </a>
@@ -124,6 +124,26 @@
                             <span class="menu-text">Thêm mới Blog</span>
                         </a>
                     </li>
+                    <li>
+                        <a th:href="@{/admin-manager/event}">
+                            <i class="bi bi-gift"></i>
+                            <span class="menu-text">Sự Kiện Khuyến Mãi</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin-manager/revenue}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span class="menu-text">Doanh thu</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a th:href="@{/admin-manager/revenue/month}">
+                            <i class="bi bi-cash-coin"></i>
+                            <span class="menu-text">Doanh thu theo tháng</span>
+                        </a>
+                    </li>
+
+
                 </ul>
             </div>
         </div>
