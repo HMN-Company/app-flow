@@ -19,4 +19,5 @@ public class Order extends BaseEntity {
     private String phone;
     @Enumerated(EnumType.STRING)
     private Status status;
+    private Double totalPrice;
 }

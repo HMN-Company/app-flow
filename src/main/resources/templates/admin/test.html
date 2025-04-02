@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bản đồ Doanh Thu</title>
 </head>
 <body>
-Hello
+<h2>Bản đồ Doanh Thu</h2>
+
+<!-- Duyệt qua các nhóm năm -->
+<div th:each="entry : ${groupedByYear}">
+    <h3 th:text="'Doanh Thu Năm ' + ${entry.key}"></h3>
+    <ul>
+        <!-- Duyệt qua các tháng trong mỗi năm -->
+        <li th:each="monthData : ${entry.value}">
+            Tháng <span th:text="${monthData['month']}"></span>:
+            <span th:text="${monthData['totalRevenue']}"></span>
+        </li>
+    </ul>
+</div>
+
 </body>
 </html>

@@ -99,135 +99,37 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <form method="GET" action="" class="row align-items-center mb-3" id="searchForm">
-                                        <div class="col-md-4">
-                                            <select name="status" class="form-select" id="statusSelect">
-                                                <option value="">Tất cả danh mục</option>
-                                                <option th:each="sta : ${statuses}"
-                                                        th:value="${sta}"
-                                                        th:text="${sta}"
-                                                        th:selected="${sta == statusSearch}">
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </form>
+
 
 
                                     <table class="table table-bordered m-0">
                                         <thead>
                                         <tr>
                                             <th>Số Thứ Tự</th>
-                                            <th>Tên Khách Hàng</th>
-                                            <th>Email</th>
-                                            <th>Số điện thoại</th>
-                                            <th>Tổng giá</th>
-                                            <th>Trạng thái</th>
-                                            <th>Hành động</th>
-                                            <th>Chi tiết</th>
-
+                                            <th>Tên Sản Phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Số Lượng</th>
+                                            <th>Thành tiền</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="order, stat : ${orders}">
-                                            <td th:text="${stat.index + 1 + currentPage * 5}"></td>
-                                            <td th:text="${order.fullName}"></td>
-                                            <td th:text="${order.email}"></td>
-                                            <td th:text="${order.phone}"></td>
-                                            <td th:text="${order.totalPrice}"></td>
-                                            <td>
-                                                <th:block th:if="${order.status.toString() == 'PENDING'}">
-                                                    <span class="badge bg-warning">Chờ xác nhận</span>
-
-                                                </th:block>
-
-                                                <th:block th:if="${order.status.toString() == 'CONFIRMED'}">
-                                                    <span class="badge bg-info">Đã xác nhận</span>
-                                                </th:block>
-
-                                                <th:block th:if="${order.status.toString() == 'DELIVERED'}">
-                                                    <span class="badge bg-success">Đã hoàn thành</span>
-                                                </th:block>
-
-                                                <th:block th:if="${order.status.toString() == 'CANCELLED'}">
-                                                    <span class="badge bg-danger">Đã hủy</span>
-                                                </th:block>
-                                            </td>
-                                            <td>
-                                                <!-- Trạng thái PENDING -->
-                                                <th:block th:if="${order.status.toString() == 'PENDING'}">
-                                                    <button class="btn btn-warning" data-bs-toggle="modal" th:attr="data-bs-target='#confirmOrderModal' + ${order.id}">
-                                                        Xác nhận
-                                                    </button>
-                                                    <button class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#cancelOrderModal' + ${order.id}">
-                                                        Hủy
-                                                    </button>
-                                                </th:block>
-
-                                                <!-- Trạng thái CONFIRMED -->
-                                                <th:block th:if="${order.status.toString() == 'CONFIRMED'}">
-                                                    <button class="btn btn-info" data-bs-toggle="modal" th:attr="data-bs-target='#deliverOrderModal' + ${order.id}">
-                                                        Hoàn thành
-                                                    </button>
-                                                    <button class="btn btn-danger" data-bs-toggle="modal" th:attr="data-bs-target='#cancelOrderModal' + ${order.id}">
-                                                        Hủy
-                                                    </button>
-                                                </th:block>
-
-                                                <!-- Trạng thái DELIVERED -->
-                                                <th:block th:if="${order.status.toString() == 'DELIVERED'}">
-                                                    <span class="badge bg-success">Đã hoàn thành</span>
-                                                </th:block>
-
-                                                <!-- Trạng thái CANCELLED -->
-                                                <th:block th:if="${order.status.toString() == 'CANCELLED'}">
-                                                    <span class="badge bg-danger">Đã hủy</span>
-                                                </th:block>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-warning"
-                                                   th:href="@{/admin-manager/order/view/{id}(id=${order.id})}">
-                                                    <i class="fas fa-eye"></i> Xem
-                                                </a>
-                                            </td>
-                                            </td>
-
-
+                                        <tr th:each="orderDetailsLog, stat : ${orderDetailsLogs}">
+                                            <td th:text="${stat.index + 1}"></td>
+                                            <td th:text="${orderDetailsLog.productName}"></td>
+                                            <td th:text="${#numbers.formatDecimal(orderDetailsLog.price, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                            <td th:text="${orderDetailsLog.quantity}"></td>
+                                            <td th:text="${#numbers.formatDecimal(orderDetailsLog.price*orderDetailsLog.quantity, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Tổng tiền</td>
+                                            <td th:text="${#numbers.formatDecimal(totalAmount, 0, 'COMMA', 0, 'POINT') + ' VND'}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div th:if="${totalPages == 0}" class="alert alert-warning text-center py-4 mt-3">
-                                        <i class="fas fa-exclamation-circle fa-2x mb-2"></i>
-                                        <h5 class="mb-0">Không có sản phẩm phù hợp</h5>
-                                    </div>
 
-                                    <!-- Phân Trang -->
-                                    <div th:if="${totalPages != 0}" class="mt-5">
-                                        <nav aria-label="Phân trang">
-                                            <ul class="pagination d-flex justify-content-between">
-                                                <li th:if="${currentPage > 0}" class="btn btn-primary">
-                                                    <a class="text-white"  th:href="@{/admin-manager/product(page=${currentPage - 1}, size=5, name=${name}, category=${category})}"> <i class="fas fa-arrow-left"></i> Trang trước</a>
-                                                </li>
-                                                <li th:if="${currentPage <= 0}" class="btn btn-primary disabled">
-                                                    <a><i class="fas fa-arrow-left"></i> Trang trước</a>
-                                                </li>
-                                                <div class="d-flex mx-2">
-                                                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" class="page-item mx-1"
-                                                        th:classappend="${i == currentPage} ? 'active'">
-                                                        <a class="page-link btn btn-outline-primary"
-                                                           th:href="@{/admin-manager/product(page=${i}, size=5, name=${name}, category=${category})}"
-                                                           th:text="${i + 1}">
-                                                        </a>
-                                                    </li>
-                                                </div>
-                                                <li th:if="${currentPage < totalPages - 1}" class="btn btn-primary">
-                                                    <a class="text-white text-center" th:href="@{/admin-manager/product(page=${currentPage + 1}, size=5, name=${name}, category=${category})}">Trang kế tiếp <i class="fas fa-arrow-right"></i></a>
-                                                </li>
-                                                <li th:if="${currentPage >= totalPages - 1}" class="btn btn-primary disabled">
-                                                    <a >Trang kế tiếp <i class="fas fa-arrow-right"></i></a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
                                 </div>
                             </div>
                         </div>

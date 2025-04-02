@@ -11,17 +11,43 @@ INSERT INTO product (id, created_at, updated_at, description, discount, is_stock
                                                                                                                              (9, '2024-03-09 18:40:00', '2024-03-13 23:50:00', 'Sản phẩm 9 mô tả', 11.0, TRUE, 'Sản phẩm 9', 500000, 35, 9, 'Limited'),
                                                                                                                              (10, '2024-03-10 19:55:00', '2024-03-14 23:59:00', 'Sản phẩm 10 mô tả', 13.0, TRUE, 'Sản phẩm 10', 550000, 70, 10, 'New');
 
-INSERT INTO orders (id, created_at, updated_at, address, email, full_name, phone, status) VALUES
-                                                                                              (1, '2024-03-15 08:30:00', '2024-03-15 08:30:00', '123 Đường ABC, Hà Nội', 'customer1@example.com', 'Nguyễn Văn A', '0987654321', 'PENDING'),
-                                                                                              (2, '2024-03-16 10:00:00', '2024-03-16 10:15:00', '456 Đường XYZ, TP HCM', 'customer2@example.com', 'Trần Thị B', '0976543210', 'CONFIRMED'),
-                                                                                              (3, '2024-03-17 12:45:00', '2024-03-17 12:50:00', '789 Đường LMN, Đà Nẵng', 'customer3@example.com', 'Lê Văn C', '0965432109', 'CANCELLED'),
-                                                                                              (4, '2024-03-18 14:20:00', '2024-03-18 14:25:00', '987 Đường DEF, Hải Phòng', 'customer4@example.com', 'Phạm Thị D', '0954321098', 'CONFIRMED'),
-                                                                                              (5, '2024-03-19 16:10:00', '2024-03-19 16:15:00', '654 Đường GHI, Cần Thơ', 'customer5@example.com', 'Hoàng Văn E', '0943210987', 'DELIVERED'),
-                                                                                              (6, '2024-03-20 18:35:00', '2024-03-20 18:40:00', '321 Đường JKL, Nha Trang', 'customer6@example.com', 'Đặng Văn F', '0932109876', 'PENDING'),
-                                                                                              (7, '2024-03-21 20:45:00', '2024-03-21 20:50:00', '159 Đường MNO, Huế', 'customer7@example.com', 'Lý Thị G', '0921098765', 'CANCELLED'),
-                                                                                              (8, '2024-03-22 22:10:00', '2024-03-22 22:15:00', '753 Đường PQR, Đà Lạt', 'customer8@example.com', 'Tô Văn H', '0910987654', 'CONFIRMED'),
-                                                                                              (9, '2024-03-23 08:20:00', '2024-03-23 08:25:00', '357 Đường STU, Bình Dương', 'customer9@example.com', 'Trương Thị I', '0909876543', 'CONFIRMED'),
-                                                                                              (10, '2024-03-24 10:50:00', '2024-03-24 10:55:00', '951 Đường VWX, Quảng Ninh', 'customer10@example.com', 'Ngô Văn J', '0898765432', 'DELIVERED');
+INSERT INTO orders (id, created_at, updated_at, address, email, full_name, phone, status, total_price) VALUES
+                                                                                              (1, '2024-03-15 08:30:00', '2024-03-15 08:30:00', '123 Đường ABC, Hà Nội', 'customer1@example.com', 'Nguyễn Văn A', '0987654321', 'PENDING',200000),
+                                                                                              (2, '2024-03-16 10:00:00', '2024-03-16 10:15:00', '456 Đường XYZ, TP HCM', 'customer2@example.com', 'Trần Thị B', '0976543210', 'CONFIRMED',200000),
+                                                                                              (3, '2024-03-17 12:45:00', '2024-03-17 12:50:00', '789 Đường LMN, Đà Nẵng', 'customer3@example.com', 'Lê Văn C', '0965432109', 'CANCELLED',200000),
+                                                                                              (4, '2024-03-18 14:20:00', '2024-03-18 14:25:00', '987 Đường DEF, Hải Phòng', 'customer4@example.com', 'Phạm Thị D', '0954321098', 'CONFIRMED',200000),
+                                                                                              (5, '2024-03-19 16:10:00', '2024-03-19 16:15:00', '654 Đường GHI, Cần Thơ', 'customer5@example.com', 'Hoàng Văn E', '0943210987', 'DELIVERED',200000),
+                                                                                              (6, '2024-03-20 18:35:00', '2024-03-20 18:40:00', '321 Đường JKL, Nha Trang', 'customer6@example.com', 'Đặng Văn F', '0932109876', 'PENDING',200000),
+                                                                                              (7, '2024-03-21 20:45:00', '2024-03-21 20:50:00', '159 Đường MNO, Huế', 'customer7@example.com', 'Lý Thị G', '0921098765', 'CANCELLED',200000),
+                                                                                              (8, '2024-03-22 22:10:00', '2024-03-22 22:15:00', '753 Đường PQR, Đà Lạt', 'customer8@example.com', 'Tô Văn H', '0910987654', 'CONFIRMED',200000),
+                                                                                              (9, '2024-03-23 08:20:00', '2024-03-23 08:25:00', '357 Đường STU, Bình Dương', 'customer9@example.com', 'Trương Thị I', '0909876543', 'CONFIRMED',200000),
+                                                                                              (10, '2024-03-24 10:50:00', '2024-03-24 10:55:00', '951 Đường VWX, Quảng Ninh', 'customer10@example.com', 'Ngô Văn J', '0898765432', 'DELIVERED',200000);
+INSERT INTO order_details_log (id, created_at, updated_at, price, product_name, quantity, order_id) VALUES
+                                                                                                        (1, '2024-03-15 08:30:00', '2024-03-15 08:30:00', 100000, 'Sản phẩm 1', 1, 1),
+                                                                                                        (2, '2024-03-15 08:30:00', '2024-03-15 08:30:00', 100000, 'Sản phẩm 2', 1, 1),
+
+                                                                                                        (3, '2024-03-16 10:00:00', '2024-03-16 10:15:00', 150000, 'Sản phẩm 3', 1, 2),
+                                                                                                        (4, '2024-03-16 10:00:00', '2024-03-16 10:15:00', 50000, 'Sản phẩm 4', 1, 2),
+
+                                                                                                        (5, '2024-03-17 12:45:00', '2024-03-17 12:50:00', 200000, 'Sản phẩm 5', 1, 3),
+
+                                                                                                        (6, '2024-03-18 14:20:00', '2024-03-18 14:25:00', 100000, 'Sản phẩm 6', 1, 4),
+                                                                                                        (7, '2024-03-18 14:20:00', '2024-03-18 14:25:00', 100000, 'Sản phẩm 7', 1, 4),
+
+                                                                                                        (8, '2024-03-19 16:10:00', '2024-03-19 16:15:00', 200000, 'Sản phẩm 8', 1, 5),
+
+                                                                                                        (9, '2024-03-20 18:35:00', '2024-03-20 18:40:00', 150000, 'Sản phẩm 9', 1, 6),
+                                                                                                        (10, '2024-03-20 18:35:00', '2024-03-20 18:40:00', 50000, 'Sản phẩm 10', 1, 6),
+
+                                                                                                        (11, '2024-03-21 20:45:00', '2024-03-21 20:50:00', 200000, 'Sản phẩm 1', 1, 7),
+
+                                                                                                        (12, '2024-03-22 22:10:00', '2024-03-22 22:15:00', 100000, 'Sản phẩm 2', 1, 8),
+                                                                                                        (13, '2024-03-22 22:10:00', '2024-03-22 22:15:00', 100000, 'Sản phẩm 3', 1, 8),
+
+                                                                                                        (14, '2024-03-23 08:20:00', '2024-03-23 08:25:00', 200000, 'Sản phẩm 4', 1, 9),
+
+                                                                                                        (15, '2024-03-24 10:50:00', '2024-03-24 10:55:00', 200000, 'Sản phẩm 5', 1, 10);
+
 
 INSERT INTO order_details (id, created_at, updated_at, quantity, order_id, product_id) VALUES
                                                                                            (1, '2024-03-15 08:31:00', '2024-03-15 08:31:00', 2, 1, 3),
@@ -153,5 +179,31 @@ FROM orders o
 GROUP BY o.id, o.created_at, o.status,
          o.full_name, o.email, o.phone, o.address
 ORDER BY o.created_at DESC;
+
+
+
+
+SET @startDate = NULL;  -- Hoặc '2024-03-01 00:00:00'
+SET @endDate = '2026-03-10 23:59:59';
+
+SELECT * FROM orders
+WHERE status = 'DELIVERED'
+  AND (@startDate IS NULL OR updated_at >= @startDate)
+  AND (@endDate IS NULL OR updated_at <= @endDate)
+ORDER BY updated_at DESC;
+
+
+SELECT
+    EXTRACT(YEAR FROM updated_at) AS year,
+    EXTRACT(MONTH FROM updated_at) AS month,
+    SUM(total_price) AS total_revenue
+FROM
+    orders
+WHERE
+    status = 'DELIVERED'
+GROUP BY
+    EXTRACT(YEAR FROM updated_at), EXTRACT(MONTH FROM updated_at)
+ORDER BY
+    year DESC, month DESC;
 
 
